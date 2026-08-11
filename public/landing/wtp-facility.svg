@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Ilustrasi unit Water Treatment Plant tipe skid: bejana filter, pipa, dan panel kontrol">
+  <defs>
+    <linearGradient id="wbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#062b48"/>
+      <stop offset="1" stop-color="#0a76a8"/>
+    </linearGradient>
+    <linearGradient id="wvessel" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#12557f"/>
+      <stop offset=".45" stop-color="#3a9bc9"/>
+      <stop offset="1" stop-color="#12557f"/>
+    </linearGradient>
+    <linearGradient id="wsteel" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9fd6ef"/>
+      <stop offset=".5" stop-color="#e7f7ff"/>
+      <stop offset="1" stop-color="#9fd6ef"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#wbg)"/>
+
+  <!-- soft circle motif -->
+  <circle cx="120" cy="500" r="260" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="1.5"/>
+
+  <!-- skid frame -->
+  <g stroke="#bfe8ff" stroke-width="6" fill="none" stroke-linejoin="round">
+    <rect x="140" y="150" width="520" height="330" rx="10"/>
+    <path d="M140 210 H660 M140 420 H660"/>
+    <path d="M270 150 V480 M420 150 V480 M540 150 V480"/>
+  </g>
+  <!-- skid feet -->
+  <g stroke="#8fc6e6" stroke-width="7" stroke-linecap="round">
+    <path d="M180 480 V512"/><path d="M620 480 V512"/><path d="M400 480 V512"/>
+  </g>
+
+  <!-- vertical filter vessels with domed tops -->
+  <g stroke="#e7f7ff" stroke-width="4" fill="url(#wvessel)">
+    <path d="M300 250 a45 40 0 0 1 90 0 v150 a45 20 0 0 1 -90 0 z"/>
+    <path d="M430 250 a45 40 0 0 1 90 0 v150 a45 20 0 0 1 -90 0 z"/>
+  </g>
+  <!-- vessel highlight -->
+  <g stroke="#eafaff" stroke-opacity=".7" stroke-width="3" fill="none">
+    <path d="M320 240 v150"/><path d="M450 240 v150"/>
+  </g>
+
+  <!-- top pipe header with valves -->
+  <g stroke="#cbeeff" stroke-width="7" fill="none" stroke-linecap="round">
+    <path d="M240 200 H600"/>
+    <path d="M345 200 V212"/><path d="M475 200 V212"/>
+  </g>
+  <g fill="#0d5d8d" stroke="#cbeeff" stroke-width="3">
+    <circle cx="345" cy="200" r="12"/><circle cx="475" cy="200" r="12"/>
+  </g>
+
+  <!-- horizontal collection pipe at bottom -->
+  <path d="M240 440 H600" stroke="#8fd6f4" stroke-width="8" stroke-linecap="round" fill="none"/>
+
+  <!-- control panel -->
+  <g>
+    <rect x="560" y="250" width="72" height="96" rx="8" fill="#083a5f" stroke="#bfe8ff" stroke-width="4"/>
+    <circle cx="580" cy="276" r="7" fill="#3fd08a"/>
+    <circle cx="612" cy="276" r="7" fill="#d82f32"/>
+    <rect x="572" y="300" width="48" height="8" rx="4" fill="#7fd0f2"/>
+    <rect x="572" y="318" width="48" height="8" rx="4" fill="#4bb2e0"/>
+  </g>
+
+  <!-- outflow droplets -->
+  <g fill="#8fd6f4">
+    <path d="M300 470 c0 12 -10 16 -10 26 a10 10 0 0 0 20 0 c0 -10 -10 -14 -10 -26 z"/>
+    <path d="M470 470 c0 12 -10 16 -10 26 a10 10 0 0 0 20 0 c0 -10 -10 -14 -10 -26 z" fill-opacity=".75"/>
+  </g>
+</svg>

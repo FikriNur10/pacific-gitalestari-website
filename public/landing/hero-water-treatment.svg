@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img" aria-label="Ilustrasi fasilitas pengolahan air industri: tangki proses, pipa, pompa, dan aliran air">
+  <defs>
+    <linearGradient id="hbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#052f52"/>
+      <stop offset=".55" stop-color="#063b68"/>
+      <stop offset="1" stop-color="#0a76a6"/>
+    </linearGradient>
+    <linearGradient id="htank" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0c5482"/>
+      <stop offset=".5" stop-color="#1a7cb3"/>
+      <stop offset="1" stop-color="#0c5482"/>
+    </linearGradient>
+    <linearGradient id="hwater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8fd6f4"/>
+      <stop offset="1" stop-color="#2f9bd4"/>
+    </linearGradient>
+    <clipPath id="ht1"><rect x="120" y="300" width="118" height="214" rx="26"/></clipPath>
+    <clipPath id="ht2"><rect x="300" y="252" width="128" height="262" rx="28"/></clipPath>
+    <clipPath id="ht3"><rect x="492" y="330" width="112" height="184" rx="24"/></clipPath>
+  </defs>
+
+  <rect width="800" height="640" fill="url(#hbg)"/>
+
+  <!-- orbit rings, echoing the hero background motif -->
+  <g fill="none" stroke="#b5e7ff" stroke-opacity=".2">
+    <circle cx="660" cy="150" r="190"/>
+    <circle cx="660" cy="150" r="128"/>
+  </g>
+
+  <!-- faint dot grid -->
+  <g fill="#bfe8ff" fill-opacity=".14">
+    <circle cx="70" cy="90" r="3"/><circle cx="120" cy="90" r="3"/><circle cx="170" cy="90" r="3"/>
+    <circle cx="70" cy="140" r="3"/><circle cx="120" cy="140" r="3"/><circle cx="170" cy="140" r="3"/>
+  </g>
+
+  <!-- ground line -->
+  <rect x="0" y="516" width="800" height="5" fill="#0b4c7c"/>
+
+  <!-- pipe manifold across tank tops -->
+  <g stroke="#cbeeff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M132 176 H640"/>
+    <path d="M179 176 V300"/>
+    <path d="M364 176 V252"/>
+    <path d="M548 176 V330"/>
+    <path d="M640 176 V300"/>
+  </g>
+  <!-- flow direction chevrons on the manifold -->
+  <g stroke="#8fd6f4" stroke-width="4" fill="none" stroke-linecap="round">
+    <path d="M250 168 l12 8 -12 8"/>
+    <path d="M440 168 l12 8 -12 8"/>
+  </g>
+
+  <!-- tank 1 -->
+  <rect x="120" y="300" width="118" height="214" rx="26" fill="url(#htank)" stroke="#aee5fb" stroke-width="4"/>
+  <rect x="120" y="404" width="118" height="110" fill="url(#hwater)" clip-path="url(#ht1)"/>
+  <path d="M120 404 q29 -14 59 0 t59 0 v10 h-118 z" fill="#a7e0f7" clip-path="url(#ht1)"/>
+
+  <!-- tank 2 (tallest) -->
+  <rect x="300" y="252" width="128" height="262" rx="28" fill="url(#htank)" stroke="#aee5fb" stroke-width="4"/>
+  <rect x="300" y="336" width="128" height="178" fill="url(#hwater)" clip-path="url(#ht2)"/>
+  <path d="M300 336 q32 -15 64 0 t64 0 v10 h-128 z" fill="#a7e0f7" clip-path="url(#ht2)"/>
+
+  <!-- tank 3 -->
+  <rect x="492" y="330" width="112" height="184" rx="24" fill="url(#htank)" stroke="#aee5fb" stroke-width="4"/>
+  <rect x="492" y="424" width="112" height="90" fill="url(#hwater)" clip-path="url(#ht3)"/>
+  <path d="M492 424 q28 -13 56 0 t56 0 v10 h-112 z" fill="#a7e0f7" clip-path="url(#ht3)"/>
+
+  <!-- pump / valve node -->
+  <circle cx="640" cy="332" r="40" fill="#0d5d8d" stroke="#cbeeff" stroke-width="4"/>
+  <g stroke="#cbeeff" stroke-width="5" stroke-linecap="round">
+    <path d="M640 312 V352"/><path d="M620 332 H660"/>
+  </g>
+
+  <!-- gauge dial -->
+  <g transform="translate(179 356)">
+    <circle r="20" fill="#083a5f" stroke="#8fd6f4" stroke-width="3"/>
+    <path d="M0 0 L11 -9" stroke="#d82f32" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- water waves along the base -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M0 556 q40 -18 80 0 t80 0 t80 0 t80 0 t80 0 t80 0 t80 0 t80 0 t80 0 t80 0" stroke="#7fd0f2" stroke-width="4" stroke-opacity=".85"/>
+    <path d="M0 578 q40 -18 80 0 t80 0 t80 0 t80 0 t80 0 t80 0 t80 0 t80 0 t80 0 t80 0" stroke="#4bb2e0" stroke-width="4" stroke-opacity=".55"/>
+  </g>
+
+  <!-- droplet accent -->
+  <path d="M708 452 c0 22 -18 30 -18 48 a18 18 0 0 0 36 0 c0 -18 -18 -26 -18 -48 z" fill="#8fd6f4" fill-opacity=".9"/>
+</svg>
