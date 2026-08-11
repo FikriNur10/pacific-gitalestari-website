@@ -16,6 +16,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Railway (dan PaaS lain) terminate TLS di edge lalu forward HTTP + header
+        // X-Forwarded-Proto: https. Trust proxy '*' agar Laravel deteksi HTTPS dan
+        // generate URL aset/font/redirect sebagai https (fix mixed-content blocking).
+        // '*' dipakai — bukan IP spesifik — karena IP proxy internal Railway tidak
+        // fix/terdokumentasi; satu-satunya ingress ke container hanya lewat proxy Railway.
+        $middleware->trustProxies(at: '*');
+
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
         $middleware->web(append: [
