@@ -3,6 +3,14 @@ import { useRef } from 'react';
 import '../../css/landing.css';
 import LandingFooter from '@/components/landing/landing-footer';
 import LandingHeader from '@/components/landing/landing-header';
+import {
+    CrystalMotif,
+    FacilitySilhouette,
+    MoleculeField,
+    MonitoringReadout,
+    SugarcaneMotif,
+    WaveDivider,
+} from '@/components/landing/landing-motifs';
 import WhatsappFab from '@/components/landing/whatsapp-fab';
 import { useLandingEffects } from '@/hooks/use-landing-effects';
 import { useHeroBackground } from '@/lib/hero-background';
@@ -72,6 +80,7 @@ export default function Landing() {
                                 data-parallax="0.22"
                             />
                         </div>
+                        <MoleculeField className="molecule-field--on-dark" />
                         <div className="hero-grid container">
                             <div className="hero-copy reveal">
                                 <p className="eyebrow">
@@ -107,16 +116,8 @@ export default function Landing() {
                                 </div>
                             </div>
                         </div>
-                        <div className="hero-card">
-                            <strong data-count-to="18" data-count-suffix="+">
-                                18+
-                            </strong>
-                            <span>
-                                Tahun pengalaman
-                                <br />
-                                di solusi industri
-                            </span>
-                        </div>
+                        <MonitoringReadout />
+                        <WaveDivider tone="white" />
                     </section>
 
                     <section
@@ -352,6 +353,36 @@ export default function Landing() {
                                 </a>
                             </div>
                         </div>
+                        <div className="proc-strip container">
+                            <figure className="proc-photo reveal">
+                                <img
+                                    src="/landing/images/steel-pipes-scUBcasSvbE-unsplash.jpg"
+                                    alt="Susunan pipa industri stainless steel di fasilitas pengolahan"
+                                    loading="lazy"
+                                />
+                                <figcaption>Pipa industri</figcaption>
+                            </figure>
+                            <figure className="proc-photo reveal">
+                                <img
+                                    src="/landing/images/chemical-steel-tanks-xD5SWy7hMbw-unsplash.jpg"
+                                    alt="Tangki penyimpanan bahan kimia dari baja di area plant"
+                                    loading="lazy"
+                                />
+                                <figcaption>
+                                    Tangki penyimpanan kimia
+                                </figcaption>
+                            </figure>
+                            <figure className="proc-photo reveal">
+                                <img
+                                    src="/landing/images/water-treatment-aerial-Rdxjg7UqF08-unsplash.jpg"
+                                    alt="Instalasi pengolahan air tampak atas dengan aliran air jernih"
+                                    loading="lazy"
+                                />
+                                <figcaption>
+                                    Instalasi pengolahan air
+                                </figcaption>
+                            </figure>
+                        </div>
                     </section>
 
                     <section className="section">
@@ -381,6 +412,66 @@ export default function Landing() {
                                 <span>Demin Plant</span>
                             </div>
                         </div>
+                    </section>
+
+                    <section
+                        className="section sugar-section motif-host"
+                        aria-label="Pengolahan tebu menjadi gula kristal putih"
+                    >
+                        <MoleculeField className="molecule-field--on-dark" />
+                        <div className="sugar-layout container">
+                            <div className="sugar-copy reveal">
+                                <p className="eyebrow eyebrow-light">
+                                    Pengolahan gula
+                                </p>
+                                <h2>
+                                    Dari perkebunan tebu hingga gula kristal
+                                    putih.
+                                </h2>
+                                <p>
+                                    PGL menopang industri gula lewat program
+                                    kimia sugar processing — dari penjernihan
+                                    nira, kendali kerak dan busa, hingga
+                                    efisiensi kristalisasi — untuk hasil gula
+                                    kristal putih yang bersih dan konsisten.
+                                </p>
+                                <a className="text-link" href="/produk-kimia">
+                                    Lihat kimia sugar processing{' '}
+                                    <span aria-hidden="true">→</span>
+                                </a>
+                            </div>
+                            <div className="sugar-visual" aria-hidden="true">
+                                <SugarcaneMotif />
+                                <span className="sugar-arrow">→</span>
+                                <CrystalMotif />
+                            </div>
+                        </div>
+                        <ol className="sugar-flow container">
+                            <li>
+                                <span className="sugar-step">01</span>
+                                Perkebunan Tebu
+                            </li>
+                            <li>
+                                <span className="sugar-step">02</span>
+                                Penggilingan (Nira)
+                            </li>
+                            <li>
+                                <span className="sugar-step">03</span>
+                                Klarifikasi
+                            </li>
+                            <li>
+                                <span className="sugar-step">04</span>
+                                Evaporasi
+                            </li>
+                            <li>
+                                <span className="sugar-step">05</span>
+                                Kristalisasi
+                            </li>
+                            <li>
+                                <span className="sugar-step">06</span>
+                                Gula Kristal Putih
+                            </li>
+                        </ol>
                     </section>
 
                     <section
@@ -501,7 +592,7 @@ export default function Landing() {
                         </div>
                     </section>
 
-                    <section className="section section-mist">
+                    <section className="section section-mist motif-host">
                         <div className="two-column container">
                             <p className="eyebrow">Arah perusahaan</p>
                             <div>
@@ -522,9 +613,11 @@ export default function Landing() {
                                 </a>
                             </div>
                         </div>
+                        <WaveDivider tone="navy" />
                     </section>
 
                     <section className="consultation">
+                        <FacilitySilhouette className="facility-silhouette--on-dark" />
                         <div className="consultation-box container">
                             <div>
                                 <p className="eyebrow eyebrow-light">
