@@ -289,16 +289,13 @@ export function MonitoringReadout() {
                 </span>
             </div>
             <MonitoringSparkline />
+            {/* The 4 solution pillars — honest capability tags. (Replaced fabricated
+                pH/TDS/Uptime readings that implied a live sensor feed we don't have.) */}
             <div className="mon-metrics" aria-hidden="true">
-                <span>
-                    pH <b>7.2</b>
-                </span>
-                <span>
-                    TDS <b>320</b>
-                </span>
-                <span>
-                    Uptime <b>99.9%</b>
-                </span>
+                <span>Air</span>
+                <span>Kimia</span>
+                <span>Daya</span>
+                <span>Proteksi</span>
             </div>
         </div>
     );

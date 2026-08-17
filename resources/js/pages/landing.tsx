@@ -322,10 +322,19 @@ export default function Landing() {
                     <section className="section plant-section">
                         <div className="plant-layout container">
                             <div className="plant-image">
-                                <img
-                                    src="/landing/images/rephile-water-nINNu6nHH5o-unsplash.jpg"
-                                    alt="Unit Water Treatment Plant dengan tangki stainless steel dan sistem pipa"
-                                />
+                                <picture>
+                                    <source
+                                        srcSet="/landing/images/rephile-water-nINNu6nHH5o-unsplash.webp"
+                                        type="image/webp"
+                                    />
+                                    <img
+                                        src="/landing/images/rephile-water-nINNu6nHH5o-unsplash.jpg"
+                                        alt="Unit Water Treatment Plant dengan tangki stainless steel dan sistem pipa"
+                                        width={1600}
+                                        height={1080}
+                                        loading="lazy"
+                                    />
+                                </picture>
                                 <span>WTP</span>
                                 <b>STEEL · STAINLESS · CONCRETE · MOBILE</b>
                             </div>
@@ -355,29 +364,53 @@ export default function Landing() {
                         </div>
                         <div className="proc-strip container">
                             <figure className="proc-photo reveal">
-                                <img
-                                    src="/landing/images/steel-pipes-scUBcasSvbE-unsplash.jpg"
-                                    alt="Susunan pipa industri stainless steel di fasilitas pengolahan"
-                                    loading="lazy"
-                                />
+                                <picture>
+                                    <source
+                                        srcSet="/landing/images/steel-pipes-scUBcasSvbE-unsplash.webp"
+                                        type="image/webp"
+                                    />
+                                    <img
+                                        src="/landing/images/steel-pipes-scUBcasSvbE-unsplash.jpg"
+                                        alt="Susunan pipa industri stainless steel di fasilitas pengolahan"
+                                        width={900}
+                                        height={600}
+                                        loading="lazy"
+                                    />
+                                </picture>
                                 <figcaption>Pipa industri</figcaption>
                             </figure>
                             <figure className="proc-photo reveal">
-                                <img
-                                    src="/landing/images/chemical-steel-tanks-xD5SWy7hMbw-unsplash.jpg"
-                                    alt="Tangki penyimpanan bahan kimia dari baja di area plant"
-                                    loading="lazy"
-                                />
+                                <picture>
+                                    <source
+                                        srcSet="/landing/images/chemical-steel-tanks-xD5SWy7hMbw-unsplash.webp"
+                                        type="image/webp"
+                                    />
+                                    <img
+                                        src="/landing/images/chemical-steel-tanks-xD5SWy7hMbw-unsplash.jpg"
+                                        alt="Tangki penyimpanan bahan kimia dari baja di area plant"
+                                        width={900}
+                                        height={600}
+                                        loading="lazy"
+                                    />
+                                </picture>
                                 <figcaption>
                                     Tangki penyimpanan kimia
                                 </figcaption>
                             </figure>
                             <figure className="proc-photo reveal">
-                                <img
-                                    src="/landing/images/water-treatment-aerial-Rdxjg7UqF08-unsplash.jpg"
-                                    alt="Instalasi pengolahan air tampak atas dengan aliran air jernih"
-                                    loading="lazy"
-                                />
+                                <picture>
+                                    <source
+                                        srcSet="/landing/images/water-treatment-aerial-Rdxjg7UqF08-unsplash.webp"
+                                        type="image/webp"
+                                    />
+                                    <img
+                                        src="/landing/images/water-treatment-aerial-Rdxjg7UqF08-unsplash.jpg"
+                                        alt="Instalasi pengolahan air tampak atas dengan aliran air jernih"
+                                        width={1200}
+                                        height={656}
+                                        loading="lazy"
+                                    />
+                                </picture>
                                 <figcaption>
                                     Instalasi pengolahan air
                                 </figcaption>
@@ -553,10 +586,19 @@ export default function Landing() {
                             </div>
                             <article className="project-card reveal">
                                 <div className="project-image">
-                                    <img
-                                        src="/landing/diesel-generator.jpg"
-                                        alt="Generator diesel kuning dalam lingkungan proyek industri"
-                                    />
+                                    <picture>
+                                        <source
+                                            srcSet="/landing/diesel-generator.webp"
+                                            type="image/webp"
+                                        />
+                                        <img
+                                            src="/landing/diesel-generator.jpg"
+                                            alt="Generator diesel kuning dalam lingkungan proyek industri"
+                                            width={1000}
+                                            height={750}
+                                            loading="lazy"
+                                        />
+                                    </picture>
                                     <span>PLTD</span>
                                 </div>
                                 <div className="project-copy">

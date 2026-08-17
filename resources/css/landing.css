@@ -125,6 +125,12 @@
 .pgl img {
     max-width: 100%;
 }
+/* <picture> is only a WebP-with-JPG-fallback wrapper — make it layout-transparent
+   so the inner <img> keeps behaving exactly as before (absolute fills, object-fit
+   thumbs) with no wrapper box in between. */
+.pgl picture {
+    display: contents;
+}
 .pgl h1,
 .pgl h2,
 .pgl h3,
@@ -303,7 +309,10 @@
     border: 1px solid transparent;
     border-radius: var(--r-btn);
     color: #fff;
-    background: linear-gradient(180deg, var(--accent-hi), var(--accent-deep));
+    /* Both stops kept dark enough that white label text clears WCAG AA (>=4.5):
+       a brighter sky top (--accent-hi) only reaches ~2.7 and fails. Pop comes from
+       the shadow + hover lift instead of a bright fill. */
+    background: linear-gradient(180deg, #0a76b7, #085f96);
     box-shadow: var(--shadow-cta);
     font-weight: 700;
     letter-spacing: 0.01em;
@@ -318,7 +327,7 @@
 }
 .pgl .button:hover {
     transform: translateY(-2px);
-    background: linear-gradient(180deg, #45b1ea, #0a6aa4);
+    background: linear-gradient(180deg, #0a6fac, #075687);
     box-shadow: 0 16px 34px -10px rgba(15, 143, 212, 0.6);
 }
 .pgl .button:hover span[aria-hidden] {
@@ -777,7 +786,9 @@
     );
 }
 .pgl .card-number {
-    color: var(--accent);
+    /* --accent-deep (not --accent): at this 12px size, --accent on white is only
+       3.6:1; the deeper stop clears AA (>=4.5). */
+    color: var(--accent-deep);
     font:
         800 12px Manrope,
         sans-serif;
@@ -985,7 +996,7 @@
 }
 .pgl .project-copy p {
     margin-bottom: 8px;
-    color: var(--accent);
+    color: var(--accent-deep);
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.12em;
@@ -1562,7 +1573,7 @@
 }
 .pgl .catalog-card .card-number {
     display: block;
-    color: var(--accent);
+    color: var(--accent-deep);
     font:
         800 12px Manrope,
         sans-serif;
@@ -2917,7 +2928,8 @@
 }
 .pgl .sugar-flow li:last-child {
     border-color: transparent;
-    background: linear-gradient(180deg, var(--accent-hi), var(--accent-deep));
+    /* AA-safe gradient (matches .button) — white label needs >=4.5 contrast. */
+    background: linear-gradient(180deg, #0a76b7, #085f96);
     color: #fff;
     box-shadow: var(--shadow-cta);
 }
