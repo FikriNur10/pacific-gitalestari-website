@@ -1139,6 +1139,24 @@
 .pgl .tp-service-link:hover svg {
     transform: translateX(4px);
 }
+/* Spec pills inside a service card (Solusi / Proteksi catalog) */
+.pgl .tp-service-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+}
+.pgl .tp-service-specs li {
+    padding: 5px 12px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    background: var(--mist);
+    color: var(--navy);
+    font-size: 12.5px;
+    font-weight: 600;
+}
 
 /* ===== Process / steps ================================================== */
 
