@@ -16,12 +16,19 @@ type PageProps = {
 };
 
 /**
- * Berita detail (article) — CMS-backed (Fase 2). Body holds sanitized rich-text HTML
- * from the dashboard editor (server-side purified) and is injected as-is.
+ * Berita detail (article) — finbest blog-details port, CMS-backed (Fase 2). The
+ * breadcrumb banner carries the article title over the cover photo; the body holds
+ * sanitized rich-text HTML (server-side purified) and is injected as-is.
  */
 export default function BeritaDetail({ article }: PageProps) {
     return (
-        <LandingLayout title={`${article.metaTitle} | PT. Pacific Gitalestari`}>
+        <LandingLayout
+            title={`${article.metaTitle} | PT. Pacific Gitalestari`}
+            breadcrumb={{
+                title: article.title,
+                image: article.coverUrl ?? undefined,
+            }}
+        >
             <Head>
                 {article.metaDescription && (
                     <meta
@@ -31,31 +38,7 @@ export default function BeritaDetail({ article }: PageProps) {
                 )}
             </Head>
 
-            <section className="page-hero">
-                <div className="hero-orbs" aria-hidden="true">
-                    <div className="hero-orb hero-orb-1" />
-                    <div className="hero-orb hero-orb-2" />
-                </div>
-                <div className="container">
-                    <nav className="breadcrumb" aria-label="Breadcrumb">
-                        <a href="/">Beranda</a>
-                        <span aria-hidden="true">/</span>
-                        <a href="/berita">Berita</a>
-                        {article.category && (
-                            <>
-                                <span aria-hidden="true">/</span>
-                                {article.category}
-                            </>
-                        )}
-                    </nav>
-                    {article.category && (
-                        <p className="eyebrow">{article.category}</p>
-                    )}
-                    <h1>{article.title}</h1>
-                </div>
-            </section>
-
-            <section className="section">
+            <section className="pt-120 pb-120">
                 <div className="container">
                     <article className="article">
                         <div className="article-meta">
@@ -68,14 +51,6 @@ export default function BeritaDetail({ article }: PageProps) {
                                 <span>{article.publishedAt}</span>
                             )}
                         </div>
-                        {article.coverUrl && (
-                            <div className="article-hero">
-                                <img
-                                    src={article.coverUrl}
-                                    alt={article.title}
-                                />
-                            </div>
-                        )}
 
                         {/* Body is sanitized rich-text HTML (server-side purified). */}
                         <div
@@ -87,7 +62,7 @@ export default function BeritaDetail({ article }: PageProps) {
 
                         <p>
                             Butuh evaluasi teknis untuk fasilitas Anda?{' '}
-                            <a className="text-link" href="/kontak#form">
+                            <a className="tp-service-link" href="/kontak#form">
                                 Diskusikan dengan tim teknis kami →
                             </a>
                         </p>

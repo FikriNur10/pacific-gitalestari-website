@@ -1,4 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
+import { ArrowRight } from 'lucide-react';
 import LandingLayout from '@/layouts/landing-layout';
 import { useHeroBackground } from '@/lib/hero-background';
 
@@ -20,8 +21,9 @@ type PageProps = {
 };
 
 /**
- * Galeri (Gallery) — CMS-backed grid of published photos, with an optional
- * category filter. Chrome mirrors the Proyek page for a consistent look.
+ * Galeri (Gallery) — finbest project-grid port, CMS-backed. Breadcrumb banner +
+ * finbest filter pills + finbest project card grid (photo + category tag + title)
+ * with pagination and a cta band. Category filter + data wiring preserved.
  */
 export default function Galeri({
     items,
@@ -31,7 +33,10 @@ export default function Galeri({
     const heroBg = useHeroBackground('galeri');
 
     return (
-        <LandingLayout title="Galeri | PT. Pacific Gitalestari">
+        <LandingLayout
+            title="Galeri | PT. Pacific Gitalestari"
+            breadcrumb={{ title: 'Galeri', image: heroBg }}
+        >
             <Head>
                 <meta
                     name="description"
@@ -39,36 +44,23 @@ export default function Galeri({
                 />
             </Head>
 
-            <section className="page-hero">
-                <img
-                    className="hero-bg"
-                    src={heroBg}
-                    alt="Fasilitas pengolahan air tampak atas"
-                />
-                <div className="hero-scrim" aria-hidden="true" />
-                <div className="hero-orbs" aria-hidden="true">
-                    <div className="hero-orb hero-orb-1" />
-                    <div className="hero-orb hero-orb-2" />
-                </div>
+            <section className="pt-120 pb-90">
                 <div className="container">
-                    <nav className="breadcrumb" aria-label="Breadcrumb">
-                        <a href="/">Beranda</a>
-                        <span aria-hidden="true">/</span>Galeri
-                    </nav>
-                    <p className="eyebrow">Galeri</p>
-                    <h1>Dokumentasi fasilitas, proyek, dan produk.</h1>
-                    <p>
-                        Rekam visual pekerjaan dan kapabilitas PGL di lapangan —
-                        dari instalasi pengolahan air hingga proteksi struktur.
-                    </p>
-                </div>
-            </section>
+                    <div className="tp-section-title-wrapper text-center mb-50">
+                        <span className="tp-section-title-pre">Galeri</span>
+                        <h1 className="tp-section-title">
+                            Dokumentasi fasilitas, proyek, dan produk.
+                        </h1>
+                        <p className="tp-section-text">
+                            Rekam visual pekerjaan dan kapabilitas PGL di
+                            lapangan — dari instalasi pengolahan air hingga
+                            proteksi struktur.
+                        </p>
+                    </div>
 
-            <section className="section">
-                <div className="container">
                     {categories.length > 0 && (
                         <div
-                            className="gallery-filter"
+                            className="tp-filter justify-content-center"
                             role="group"
                             aria-label="Filter kategori"
                         >
@@ -76,8 +68,8 @@ export default function Galeri({
                                 href="/galeri"
                                 className={
                                     activeCategory === null
-                                        ? 'button button-small'
-                                        : 'button button-small button-ghost'
+                                        ? 'is-active'
+                                        : undefined
                                 }
                             >
                                 Semua
@@ -88,8 +80,8 @@ export default function Galeri({
                                     href={`/galeri?kategori=${encodeURIComponent(category)}`}
                                     className={
                                         activeCategory === category
-                                            ? 'button button-small'
-                                            : 'button button-small button-ghost'
+                                            ? 'is-active'
+                                            : undefined
                                     }
                                 >
                                     {category}
@@ -99,30 +91,36 @@ export default function Galeri({
                     )}
 
                     {items.data.length === 0 ? (
-                        <p className="pending-note">
+                        <p className="pending-note text-center">
                             Belum ada foto yang dipublikasikan.
                         </p>
                     ) : (
-                        <div className="gallery-grid">
+                        <div className="row">
                             {items.data.map((item, index) => (
-                                <figure
+                                <div
                                     key={`${item.title}-${index}`}
-                                    className="gallery-item reveal"
+                                    className="col-lg-4 col-md-6"
                                 >
-                                    <div className="gallery-thumb">
-                                        <img
-                                            src={item.imageUrl}
-                                            alt={item.title}
-                                            loading="lazy"
-                                        />
-                                        {item.category && (
-                                            <span>{item.category}</span>
-                                        )}
-                                    </div>
-                                    <figcaption className="gallery-body">
-                                        <strong>{item.title}</strong>
-                                    </figcaption>
-                                </figure>
+                                    <figure className="tp-project-item reveal">
+                                        <div className="tp-project-thumb">
+                                            {item.category && (
+                                                <span className="tp-project-tag">
+                                                    {item.category}
+                                                </span>
+                                            )}
+                                            <img
+                                                src={item.imageUrl}
+                                                alt={item.title}
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <figcaption className="tp-project-content">
+                                            <h3 className="tp-project-name">
+                                                {item.title}
+                                            </h3>
+                                        </figcaption>
+                                    </figure>
+                                </div>
                             ))}
                         </div>
                     )}
@@ -138,9 +136,7 @@ export default function Galeri({
                                         key={link.label}
                                         href={link.url}
                                         className={
-                                            link.active
-                                                ? 'is-active'
-                                                : undefined
+                                            link.active ? 'is-active' : undefined
                                         }
                                         dangerouslySetInnerHTML={{
                                             __html: link.label,
@@ -160,22 +156,32 @@ export default function Galeri({
                 </div>
             </section>
 
-            <section className="consultation">
-                <div className="consultation-box container">
-                    <div>
-                        <p className="eyebrow eyebrow-light">
-                            Ingin lihat lebih detail?
-                        </p>
-                        <h2>Minta company profile & dokumentasi proyek.</h2>
-                        <p>
-                            Tim PGL siap mengirimkan portofolio lengkap dan
-                            dokumentasi teknis sesuai kebutuhan tender Anda.
-                        </p>
-                    </div>
-                    <div>
-                        <a className="button button-light" href="/kontak#form">
-                            Hubungi tim kami <span aria-hidden="true">→</span>
-                        </a>
+            <section className="tp-cta-area">
+                <div className="container">
+                    <div className="tp-cta-box">
+                        <div className="row align-items-center">
+                            <div className="col-lg-8">
+                                <h2 className="tp-cta-title">
+                                    Minta company profile &amp; dokumentasi
+                                    proyek.
+                                </h2>
+                                <p>
+                                    Tim PGL siap mengirimkan portofolio lengkap
+                                    dan dokumentasi teknis sesuai kebutuhan
+                                    tender Anda.
+                                </p>
+                            </div>
+                            <div className="col-lg-4">
+                                <div className="tp-cta-actions">
+                                    <a
+                                        className="tp-btn tp-btn-white"
+                                        href="/kontak#form"
+                                    >
+                                        Hubungi tim kami <ArrowRight size={17} />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

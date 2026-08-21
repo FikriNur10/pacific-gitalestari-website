@@ -1,17 +1,24 @@
 import { Head } from '@inertiajs/react';
 import { useRef } from 'react';
 import type { ReactNode } from 'react';
+import LandingBreadcrumb from '@/components/landing/landing-breadcrumb';
 import LandingFooter from '@/components/landing/landing-footer';
 import LandingHeader from '@/components/landing/landing-header';
 import WhatsappFab from '@/components/landing/whatsapp-fab';
 import { useLandingEffects } from '@/hooks/use-landing-effects';
 import '../../css/landing.css';
+import '../../css/landing-finbest.css';
 
 interface LandingLayoutProps {
     /** Page title, formatted by the global Inertia title callback. */
     title?: string;
     /** Optional <meta>/<link> overrides merged into the shared marketing head. */
     head?: ReactNode;
+    /**
+     * Sub-page banner (finbest breadcrumb). When set, renders the navy hero
+     * banner at the top of <main>; omit on the self-contained homepage.
+     */
+    breadcrumb?: { title: string; image?: string };
     children: ReactNode;
 }
 
@@ -26,6 +33,7 @@ interface LandingLayoutProps {
 export default function LandingLayout({
     title,
     head,
+    breadcrumb,
     children,
 }: LandingLayoutProps) {
     const rootRef = useRef<HTMLDivElement>(null);
@@ -41,7 +49,7 @@ export default function LandingLayout({
                     crossOrigin=""
                 />
                 <link
-                    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+                    href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&family=Kumbh+Sans:wght@400;500;600;700;800&display=swap"
                     rel="stylesheet"
                 />
                 <link
@@ -63,7 +71,15 @@ export default function LandingLayout({
 
                 <LandingHeader />
 
-                <main id="main">{children}</main>
+                <main id="main">
+                    {breadcrumb ? (
+                        <LandingBreadcrumb
+                            title={breadcrumb.title}
+                            image={breadcrumb.image}
+                        />
+                    ) : null}
+                    {children}
+                </main>
 
                 <LandingFooter />
                 <WhatsappFab />
