@@ -1619,3 +1619,244 @@
     color: var(--steel);
     font-size: 13px;
 }
+
+/* ===== Blog cards (Berita list) ======================================== */
+
+.pgl .tp-blog-item {
+    margin-bottom: 30px;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition:
+        transform 0.3s var(--ease),
+        box-shadow 0.3s var(--ease);
+}
+.pgl .tp-blog-item:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-card-hover);
+}
+.pgl .tp-blog-thumb {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+.pgl .tp-blog-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease);
+}
+.pgl .tp-blog-item:hover .tp-blog-thumb img {
+    transform: scale(1.06);
+}
+.pgl .tp-blog-cat {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    background-image: var(--tp-grad);
+    background-size: 200% auto;
+    color: #fff;
+    font-family: 'Kumbh Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+}
+.pgl .tp-blog-body {
+    padding: 26px 24px 28px;
+}
+.pgl .tp-blog-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--steel);
+    font-size: 13px;
+    font-weight: 600;
+}
+.pgl .tp-blog-date svg {
+    width: 15px;
+    height: 15px;
+    color: var(--accent);
+}
+.pgl .tp-blog-title {
+    margin: 10px 0 16px;
+    font-family: Jost, sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    color: var(--navy);
+}
+.pgl .tp-blog-title a:hover {
+    color: var(--accent);
+}
+.pgl .tp-blog-excerpt {
+    margin: 0 0 18px;
+    color: var(--steel);
+    font-size: 14.5px;
+}
+
+/* ===== Filter pills (Galeri / FAQ nav) ================================== */
+
+.pgl .tp-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+.pgl .tp-filter a {
+    padding: 10px 20px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    background: #fff;
+    color: var(--navy);
+    font-family: Jost, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition:
+        color 0.2s,
+        border-color 0.2s,
+        background 0.2s;
+}
+.pgl .tp-filter a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+.pgl .tp-filter a.is-active {
+    color: #fff;
+    background-image: var(--tp-grad);
+    background-size: 200% auto;
+    border-color: transparent;
+}
+
+/* ===== Contact (Kontak) ================================================= */
+
+.pgl .tp-contact-info-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 26px;
+}
+.pgl .tp-contact-info-icon {
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    color: #fff;
+    background-image: var(--tp-grad);
+    background-size: 200% auto;
+}
+.pgl .tp-contact-info-icon svg {
+    width: 22px;
+    height: 22px;
+}
+.pgl .tp-contact-info-item h3 {
+    margin: 0 0 5px;
+    font-family: Jost, sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--navy);
+}
+.pgl .tp-contact-info-item a,
+.pgl .tp-contact-info-item address,
+.pgl .tp-contact-info-item span {
+    display: block;
+    color: var(--steel);
+    font-style: normal;
+    font-size: 14.5px;
+    line-height: 1.65;
+}
+.pgl .tp-contact-info-item a:hover {
+    color: var(--accent);
+}
+.pgl .tp-contact-box {
+    padding: 44px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+}
+.pgl .tp-contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+.pgl .tp-contact-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: Jost, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--navy);
+}
+.pgl .tp-contact-form .field-full {
+    grid-column: 1 / -1;
+}
+.pgl .tp-contact-form input,
+.pgl .tp-contact-form select,
+.pgl .tp-contact-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--mist);
+    color: var(--ink);
+    font:
+        15px 'Kumbh Sans',
+        sans-serif;
+    transition:
+        border-color 0.2s,
+        background 0.2s;
+}
+.pgl .tp-contact-form input:focus,
+.pgl .tp-contact-form select:focus,
+.pgl .tp-contact-form textarea:focus {
+    border-color: var(--accent);
+    background: #fff;
+}
+.pgl .tp-contact-form .field-optional {
+    font-weight: 400;
+    color: var(--steel);
+}
+.pgl .tp-contact-form .form-error {
+    color: #c0392b;
+    font-size: 12.5px;
+    font-weight: 600;
+}
+.pgl .tp-contact-form .tp-btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+    border: 0;
+}
+.pgl .tp-contact-form .form-message {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: #0a7d3a;
+    font-size: 14px;
+    font-weight: 600;
+}
+.pgl .tp-contact-map {
+    margin-top: 26px;
+    min-height: 320px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--mist);
+}
+.pgl .tp-contact-map iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    border: 0;
+    display: block;
+}
+@media (max-width: 767px) {
+    .pgl .tp-contact-form {
+        grid-template-columns: 1fr;
+    }
+    .pgl .tp-contact-box {
+        padding: 28px;
+    }
+}

@@ -1,4 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
+import { ArrowRight, CalendarDays } from 'lucide-react';
 import LandingLayout from '@/layouts/landing-layout';
 import { useHeroBackground } from '@/lib/hero-background';
 import { show } from '@/routes/berita';
@@ -26,14 +27,18 @@ const FALLBACK_COVER =
     '/landing/images/steel-pipelines-4CNNH2KEjhc-unsplash.jpg';
 
 /**
- * Berita & Artikel (News) index — now backed by the CMS (Fase 2). Lists published
- * articles from the database; each links to `/berita/{slug}`.
+ * Berita & Artikel (News) index — finbest blog page port, CMS-backed (Fase 2).
+ * Breadcrumb banner + finbest blog card grid (cover + category + date + title +
+ * excerpt + read-more) with pagination. Each card links to `/berita/{slug}`.
  */
 export default function Berita({ articles }: PageProps) {
     const heroBg = useHeroBackground('berita');
 
     return (
-        <LandingLayout title="Berita & Artikel | PT. Pacific Gitalestari">
+        <LandingLayout
+            title="Berita & Artikel | PT. Pacific Gitalestari"
+            breadcrumb={{ title: 'Berita & Artikel', image: heroBg }}
+        >
             <Head>
                 <meta
                     name="description"
@@ -41,75 +46,80 @@ export default function Berita({ articles }: PageProps) {
                 />
             </Head>
 
-            <section className="page-hero">
-                <img
-                    className="hero-bg"
-                    src={heroBg}
-                    alt="Jaringan pipa baja fasilitas industri"
-                />
-                <div className="hero-scrim" aria-hidden="true" />
-                <div className="hero-orbs" aria-hidden="true">
-                    <div className="hero-orb hero-orb-1" />
-                    <div className="hero-orb hero-orb-2" />
-                </div>
+            <section className="pt-120 pb-90">
                 <div className="container">
-                    <nav className="breadcrumb" aria-label="Breadcrumb">
-                        <a href="/">Beranda</a>
-                        <span aria-hidden="true">/</span>Berita
-                    </nav>
-                    <p className="eyebrow">Berita &amp; Artikel</p>
-                    <h1>Wawasan teknis dan kabar terbaru dari PGL.</h1>
-                    <p>
-                        Artikel teknis, tips operasional, dan kegiatan
-                        perusahaan seputar pengolahan air, bahan kimia industri,
-                        dan sistem proteksi.
-                    </p>
-                </div>
-            </section>
+                    <div className="tp-section-title-wrapper text-center mb-50">
+                        <span className="tp-section-title-pre">
+                            Berita &amp; Artikel
+                        </span>
+                        <h1 className="tp-section-title">
+                            Wawasan teknis dan kabar terbaru dari PGL.
+                        </h1>
+                        <p className="tp-section-text">
+                            Artikel teknis, tips operasional, dan kegiatan
+                            perusahaan seputar pengolahan air, bahan kimia
+                            industri, dan sistem proteksi.
+                        </p>
+                    </div>
 
-            <section className="section">
-                <div className="container">
                     {articles.data.length === 0 ? (
-                        <p className="pending-note">
+                        <p className="pending-note text-center">
                             Belum ada artikel yang dipublikasikan.
                         </p>
                     ) : (
-                        <div className="news-grid">
+                        <div className="row">
                             {articles.data.map((article) => (
-                                <article
+                                <div
                                     key={article.slug}
-                                    className="news-card reveal"
+                                    className="col-lg-4 col-md-6"
                                 >
-                                    <div className="news-thumb">
-                                        <img
-                                            src={
-                                                article.coverUrl ??
-                                                FALLBACK_COVER
-                                            }
-                                            alt={article.title}
-                                        />
-                                        {article.category && (
-                                            <span className="badge badge-cat">
-                                                {article.category}
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div className="news-body">
-                                        {article.publishedAt && (
-                                            <span className="news-date">
-                                                {article.publishedAt}
-                                            </span>
-                                        )}
-                                        <h3>{article.title}</h3>
-                                        <Link
-                                            className="text-link"
-                                            href={show(article.slug).url}
-                                        >
-                                            Baca selengkapnya{' '}
-                                            <span aria-hidden="true">→</span>
-                                        </Link>
-                                    </div>
-                                </article>
+                                    <article className="tp-blog-item reveal">
+                                        <div className="tp-blog-thumb">
+                                            <Link href={show(article.slug).url}>
+                                                <img
+                                                    src={
+                                                        article.coverUrl ??
+                                                        FALLBACK_COVER
+                                                    }
+                                                    alt={article.title}
+                                                    loading="lazy"
+                                                />
+                                            </Link>
+                                            {article.category && (
+                                                <span className="tp-blog-cat">
+                                                    {article.category}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="tp-blog-body">
+                                            {article.publishedAt && (
+                                                <span className="tp-blog-date">
+                                                    <CalendarDays size={15} />
+                                                    {article.publishedAt}
+                                                </span>
+                                            )}
+                                            <h3 className="tp-blog-title">
+                                                <Link
+                                                    href={show(article.slug).url}
+                                                >
+                                                    {article.title}
+                                                </Link>
+                                            </h3>
+                                            {article.excerpt && (
+                                                <p className="tp-blog-excerpt">
+                                                    {article.excerpt}
+                                                </p>
+                                            )}
+                                            <Link
+                                                className="tp-service-link"
+                                                href={show(article.slug).url}
+                                            >
+                                                Baca selengkapnya{' '}
+                                                <ArrowRight size={16} />
+                                            </Link>
+                                        </div>
+                                    </article>
+                                </div>
                             ))}
                         </div>
                     )}
@@ -125,9 +135,7 @@ export default function Berita({ articles }: PageProps) {
                                         key={link.label}
                                         href={link.url}
                                         className={
-                                            link.active
-                                                ? 'is-active'
-                                                : undefined
+                                            link.active ? 'is-active' : undefined
                                         }
                                         dangerouslySetInnerHTML={{
                                             __html: link.label,

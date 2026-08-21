@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 import LandingLayout from '@/layouts/landing-layout';
 import { useHeroBackground } from '@/lib/hero-background';
 
@@ -19,8 +20,9 @@ type PageProps = {
 };
 
 /**
- * Legalitas & Sertifikasi — CMS-backed credibility page for tenders. Documents are
- * grouped by category (Legalitas, Sertifikasi, …) preserving the admin sort order.
+ * Legalitas & Sertifikasi — finbest chrome (breadcrumb + section title + cta band)
+ * around the CMS-backed document grid, grouped by category (preserving the admin
+ * sort order). Card markup + data wiring preserved.
  */
 export default function Legalitas({ documents }: PageProps) {
     const heroBg = useHeroBackground('legalitas');
@@ -37,7 +39,10 @@ export default function Legalitas({ documents }: PageProps) {
     }, []);
 
     return (
-        <LandingLayout title="Legalitas & Sertifikasi | PT. Pacific Gitalestari">
+        <LandingLayout
+            title="Legalitas & Sertifikasi | PT. Pacific Gitalestari"
+            breadcrumb={{ title: 'Legalitas & Sertifikasi', image: heroBg }}
+        >
             <Head>
                 <meta
                     name="description"
@@ -45,48 +50,35 @@ export default function Legalitas({ documents }: PageProps) {
                 />
             </Head>
 
-            <section className="page-hero">
-                <img
-                    className="hero-bg"
-                    src={heroBg}
-                    alt="Instalasi perpipaan industri"
-                />
-                <div className="hero-scrim" aria-hidden="true" />
-                <div className="hero-orbs" aria-hidden="true">
-                    <div className="hero-orb hero-orb-1" />
-                    <div className="hero-orb hero-orb-2" />
-                </div>
+            <section className="pt-120 pb-90">
                 <div className="container">
-                    <nav className="breadcrumb" aria-label="Breadcrumb">
-                        <a href="/">Beranda</a>
-                        <span aria-hidden="true">/</span>Legalitas
-                    </nav>
-                    <p className="eyebrow">Legalitas &amp; Sertifikasi</p>
-                    <h1>Kualifikasi legal yang siap diverifikasi.</h1>
-                    <p>
-                        Kelengkapan izin usaha, badan hukum, dan sertifikasi
-                        sistem manajemen sebagai jaminan kredibilitas untuk
-                        proses tender dan pengadaan.
-                    </p>
-                </div>
-            </section>
+                    <div className="tp-section-title-wrapper text-center mb-50">
+                        <span className="tp-section-title-pre">
+                            Legalitas &amp; Sertifikasi
+                        </span>
+                        <h1 className="tp-section-title">
+                            Kualifikasi legal yang siap diverifikasi.
+                        </h1>
+                        <p className="tp-section-text">
+                            Kelengkapan izin usaha, badan hukum, dan sertifikasi
+                            sistem manajemen sebagai jaminan kredibilitas untuk
+                            proses tender dan pengadaan.
+                        </p>
+                    </div>
 
-            <section className="section">
-                <div className="container">
                     {documents.length === 0 ? (
-                        <p className="pending-note">
+                        <p className="pending-note text-center">
                             Dokumen legalitas akan ditampilkan setelah diunggah.
                         </p>
                     ) : (
                         categories.map((category) => (
                             <div key={category} className="legal-group">
-                                <div className="section-heading">
-                                    <div>
-                                        <p className="eyebrow">{category}</p>
-                                        <h2>{category}</h2>
-                                    </div>
+                                <div className="tp-section-title-wrapper mb-30">
+                                    <span className="tp-section-title-pre">
+                                        {category}
+                                    </span>
                                 </div>
-                                <div className="legal-grid">
+                                <div className="row">
                                     {documents
                                         .filter(
                                             (doc) =>
@@ -94,82 +86,95 @@ export default function Legalitas({ documents }: PageProps) {
                                                 category,
                                         )
                                         .map((doc) => (
-                                            <article
+                                            <div
                                                 key={doc.id}
-                                                className="legal-card reveal"
+                                                className="col-lg-4 col-md-6"
                                             >
-                                                {doc.imageUrl ? (
-                                                    <div className="legal-thumb">
-                                                        <img
-                                                            src={doc.imageUrl}
-                                                            alt={doc.title}
-                                                            loading="lazy"
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div
-                                                        className="legal-thumb legal-thumb-empty"
-                                                        aria-hidden="true"
-                                                    >
-                                                        <span>PGL</span>
-                                                    </div>
-                                                )}
-                                                <div className="legal-body">
-                                                    <strong>{doc.title}</strong>
-                                                    {doc.issuer && (
-                                                        <small>
-                                                            {doc.issuer}
-                                                        </small>
-                                                    )}
-                                                    <dl className="legal-meta">
-                                                        {doc.documentNumber && (
-                                                            <div>
-                                                                <dt>Nomor</dt>
-                                                                <dd>
-                                                                    {
-                                                                        doc.documentNumber
-                                                                    }
-                                                                </dd>
-                                                            </div>
-                                                        )}
-                                                        {doc.issuedAt && (
-                                                            <div>
-                                                                <dt>Terbit</dt>
-                                                                <dd>
-                                                                    {
-                                                                        doc.issuedAt
-                                                                    }
-                                                                </dd>
-                                                            </div>
-                                                        )}
-                                                        {doc.expiresAt && (
-                                                            <div>
-                                                                <dt>
-                                                                    Berlaku s/d
-                                                                </dt>
-                                                                <dd>
-                                                                    {
-                                                                        doc.expiresAt
-                                                                    }
-                                                                </dd>
-                                                            </div>
-                                                        )}
-                                                    </dl>
-                                                    {doc.fileUrl && (
-                                                        <a
-                                                            className="legal-download"
-                                                            href={doc.fileUrl}
-                                                            target="_blank"
-                                                            rel="noopener"
+                                                <article className="legal-card mb-30 reveal">
+                                                    {doc.imageUrl ? (
+                                                        <div className="legal-thumb">
+                                                            <img
+                                                                src={
+                                                                    doc.imageUrl
+                                                                }
+                                                                alt={doc.title}
+                                                                loading="lazy"
+                                                            />
+                                                        </div>
+                                                    ) : (
+                                                        <div
+                                                            className="legal-thumb legal-thumb-empty"
+                                                            aria-hidden="true"
                                                         >
-                                                            Lihat dokumen{' '}
-                                                            <span aria-hidden="true">
-                                                                ↗
-                                                            </span>
-                                                        </a>
+                                                            <span>PGL</span>
+                                                        </div>
                                                     )}
-                                                </div>
-                                            </article>
+                                                    <div className="legal-body">
+                                                        <strong>
+                                                            {doc.title}
+                                                        </strong>
+                                                        {doc.issuer && (
+                                                            <small>
+                                                                {doc.issuer}
+                                                            </small>
+                                                        )}
+                                                        <dl className="legal-meta">
+                                                            {doc.documentNumber && (
+                                                                <div>
+                                                                    <dt>
+                                                                        Nomor
+                                                                    </dt>
+                                                                    <dd>
+                                                                        {
+                                                                            doc.documentNumber
+                                                                        }
+                                                                    </dd>
+                                                                </div>
+                                                            )}
+                                                            {doc.issuedAt && (
+                                                                <div>
+                                                                    <dt>
+                                                                        Terbit
+                                                                    </dt>
+                                                                    <dd>
+                                                                        {
+                                                                            doc.issuedAt
+                                                                        }
+                                                                    </dd>
+                                                                </div>
+                                                            )}
+                                                            {doc.expiresAt && (
+                                                                <div>
+                                                                    <dt>
+                                                                        Berlaku
+                                                                        s/d
+                                                                    </dt>
+                                                                    <dd>
+                                                                        {
+                                                                            doc.expiresAt
+                                                                        }
+                                                                    </dd>
+                                                                </div>
+                                                            )}
+                                                        </dl>
+                                                        {doc.fileUrl && (
+                                                            <a
+                                                                className="legal-download"
+                                                                href={
+                                                                    doc.fileUrl
+                                                                }
+                                                                target="_blank"
+                                                                rel="noopener"
+                                                            >
+                                                                Lihat dokumen{' '}
+                                                                <ExternalLink
+                                                                    size={14}
+                                                                />
+                                                            </a>
+                                                        )}
+                                                    </div>
+                                                </article>
+                                            </div>
                                         ))}
                                 </div>
                             </div>
@@ -178,23 +183,31 @@ export default function Legalitas({ documents }: PageProps) {
                 </div>
             </section>
 
-            <section className="consultation">
-                <div className="consultation-box container">
-                    <div>
-                        <p className="eyebrow eyebrow-light">
-                            Butuh dokumen untuk lelang?
-                        </p>
-                        <h2>Kami siapkan dokumen kualifikasi lengkap.</h2>
-                        <p>
-                            Hubungi tim kami untuk salinan resmi dokumen
-                            legalitas dan sertifikasi sesuai persyaratan tender
-                            Anda.
-                        </p>
-                    </div>
-                    <div>
-                        <a className="button button-light" href="/kontak#form">
-                            Hubungi tim kami <span aria-hidden="true">→</span>
-                        </a>
+            <section className="tp-cta-area">
+                <div className="container">
+                    <div className="tp-cta-box">
+                        <div className="row align-items-center">
+                            <div className="col-lg-8">
+                                <h2 className="tp-cta-title">
+                                    Kami siapkan dokumen kualifikasi lengkap.
+                                </h2>
+                                <p>
+                                    Hubungi tim kami untuk salinan resmi dokumen
+                                    legalitas dan sertifikasi sesuai persyaratan
+                                    tender Anda.
+                                </p>
+                            </div>
+                            <div className="col-lg-4">
+                                <div className="tp-cta-actions">
+                                    <a
+                                        className="tp-btn tp-btn-white"
+                                        href="/kontak#form"
+                                    >
+                                        Hubungi tim kami <ArrowRight size={17} />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
