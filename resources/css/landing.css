@@ -15,40 +15,44 @@
    ========================================================================== */
 
 :root {
-    --navy: #063b68;
-    --navy-deep: #052f52;
-    --navy-ink: #08243a;
-    --blue: #0a76b7;
-    --blue-bright: #0f8fd4;
+    /* Palette — reskinned to the finbest template's visual identity (2026):
+       cyan-teal primary + deep navy secondary, replacing the prior navy/sky-blue
+       set. Token NAMES are kept so every existing `.pgl` selector recolors through
+       these vars with no markup churn; hardcoded hexes in the body were recolored
+       to match. Why cyan/navy: that IS the finbest look the client asked to adopt,
+       not a fresh brand pick — so it's centralised here rather than re-litigated. */
+    --navy: #16243e;
+    --navy-deep: #101a2e;
+    --navy-ink: #0b1220;
+    --blue: #007a94;
+    --blue-bright: #00accc;
     /* Accent scale — carries the "action/attention" role (CTA, eyebrow dot, card
-       numbers). Was the prototype's red (#d82f32); the brand revision locks the
-       palette to navy / sky-blue / white / gray (meaning: water, trust, industry),
-       so the accent is now sky-blue. Kept as its own token set (not just reusing
-       --blue) so CTA can run a brighter top-stop (--accent-hi) and still "pop"
-       over the navy hero — a flat --blue CTA on navy loses contrast. */
-    --accent: #0f8fd4;
-    --accent-hi: #34a8e6;
-    --accent-deep: #0a76b7;
-    --mist: #eff6f9;
-    --ink: #14212b;
-    --steel: #61717d;
+       numbers). Locked to the finbest cyan family. Kept as its own token set (not
+       just reusing --blue) so --accent-deep can run dark enough to clear WCAG AA
+       (>=4.5) on white at small sizes, while --accent/--accent-hi stay vivid. */
+    --accent: #00a3c3;
+    --accent-hi: #22c3e0;
+    --accent-deep: #0b6076;
+    --mist: #f4f5fa;
+    --ink: #16243e;
+    --steel: #67687a;
     --white: #fff;
-    --line: #d7e2e8;
-    --line-soft: #e6eef3;
-    --container: 1200px;
+    --line: #eaebed;
+    --line-soft: #f0f2f4;
+    --container: 1280px;
 
     --shadow-card:
-        0 1px 2px rgba(6, 59, 104, 0.05),
-        0 14px 34px -16px rgba(6, 59, 104, 0.22);
+        0 1px 2px rgba(22, 36, 62, 0.05),
+        0 14px 34px -16px rgba(22, 36, 62, 0.22);
     --shadow-card-hover:
-        0 2px 4px rgba(6, 59, 104, 0.06),
-        0 26px 50px -20px rgba(6, 59, 104, 0.3);
-    --shadow-float: 0 24px 60px -20px rgba(0, 28, 53, 0.55);
-    --shadow-cta: 0 10px 26px -10px rgba(15, 143, 212, 0.5);
+        0 2px 4px rgba(22, 36, 62, 0.06),
+        0 26px 50px -20px rgba(22, 36, 62, 0.3);
+    --shadow-float: 0 24px 60px -20px rgba(11, 20, 40, 0.55);
+    --shadow-cta: 0 10px 26px -10px rgba(0, 163, 195, 0.5);
 
-    --r-panel: 20px;
-    --r-card: 18px;
-    --r-btn: 11px;
+    --r-panel: 16px;
+    --r-card: 14px;
+    --r-btn: 8px;
 
     --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
@@ -106,7 +110,7 @@
     color: var(--ink);
     background: var(--white);
     font:
-        16px/1.65 Inter,
+        16px/1.65 Kumbh Sans,
         ui-sans-serif,
         system-ui,
         Arial,
@@ -140,7 +144,7 @@
 .pgl h1,
 .pgl h2,
 .pgl h3 {
-    font-family: Manrope, ui-sans-serif, system-ui, Arial, sans-serif;
+    font-family: Jost, ui-sans-serif, system-ui, Arial, sans-serif;
     line-height: 1.12;
     letter-spacing: -0.03em;
 }
@@ -164,7 +168,7 @@
 }
 
 .pgl ::selection {
-    background: rgba(10, 118, 183, 0.18);
+    background: rgba(0, 137, 166, 0.18);
     color: var(--navy);
 }
 
@@ -179,7 +183,7 @@
 .pgl input:focus-visible,
 .pgl select:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(15, 143, 212, 0.45);
+    box-shadow: 0 0 0 3px rgba(0, 163, 195, 0.45);
     border-radius: 8px;
 }
 
@@ -219,7 +223,7 @@
     -webkit-backdrop-filter: blur(16px) saturate(1.5);
     backdrop-filter: blur(16px) saturate(1.5);
     border-bottom: 1px solid var(--line-soft);
-    box-shadow: 0 6px 30px -14px rgba(6, 59, 104, 0.3);
+    box-shadow: 0 6px 30px -14px rgba(22, 36, 62, 0.3);
 }
 .pgl .nav-wrap {
     min-height: 80px;
@@ -233,7 +237,7 @@
     display: flex;
     align-items: center;
     gap: 11px;
-    font-family: Manrope, sans-serif;
+    font-family: Jost, sans-serif;
     line-height: 1;
 }
 .pgl .brand-mark {
@@ -305,17 +309,18 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 14px 22px;
+    padding: 15px 30px;
     border: 1px solid transparent;
     border-radius: var(--r-btn);
     color: #fff;
-    /* Both stops kept dark enough that white label text clears WCAG AA (>=4.5):
-       a brighter sky top (--accent-hi) only reaches ~2.7 and fails. Pop comes from
-       the shadow + hover lift instead of a bright fill. */
-    background: linear-gradient(180deg, #0a76b7, #085f96);
+    /* finbest CTAs read as a bright cyan gradient, but full-bright cyan (#00accc)
+       only clears ~2.3 against white and fails WCAG AA. Both stops are held to the
+       deep end of the cyan family so white label text stays >=4.5; the finbest
+       "pop" comes from the diagonal gradient + shadow + hover lift, not a bright fill. */
+    background: linear-gradient(135deg, #007a94 0%, #005f79 100%);
     box-shadow: var(--shadow-cta);
     font-weight: 700;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
     cursor: pointer;
     transition:
         transform 0.2s var(--ease),
@@ -327,8 +332,8 @@
 }
 .pgl .button:hover {
     transform: translateY(-2px);
-    background: linear-gradient(180deg, #0a6fac, #075687);
-    box-shadow: 0 16px 34px -10px rgba(15, 143, 212, 0.6);
+    background: linear-gradient(135deg, #0a7d90 0%, #0a6076 100%);
+    box-shadow: 0 16px 34px -10px rgba(0, 163, 195, 0.6);
 }
 .pgl .button:hover span[aria-hidden] {
     transform: translateX(3px);
@@ -399,7 +404,7 @@
     height: 7px;
     border-radius: 50%;
     background: var(--accent);
-    box-shadow: 0 0 0 4px rgba(15, 143, 212, 0.18);
+    box-shadow: 0 0 0 4px rgba(0, 163, 195, 0.18);
 }
 .pgl .eyebrow-light,
 .pgl .hero .eyebrow,
@@ -439,12 +444,12 @@
     background:
         linear-gradient(
             105deg,
-            rgba(5, 29, 50, 0.92) 0%,
-            rgba(6, 44, 84, 0.72) 42%,
-            rgba(6, 44, 84, 0.3) 72%,
-            rgba(10, 118, 166, 0.12) 100%
+            rgba(10, 17, 30, 0.92) 0%,
+            rgba(22, 36, 62, 0.72) 42%,
+            rgba(22, 36, 62, 0.3) 72%,
+            rgba(0, 137, 166, 0.12) 100%
         ),
-        linear-gradient(0deg, rgba(5, 29, 50, 0.55) 0%, transparent 45%);
+        linear-gradient(0deg, rgba(10, 17, 30, 0.55) 0%, transparent 45%);
 }
 .pgl .hero > .container {
     position: relative;
@@ -469,7 +474,7 @@
     left: -6rem;
     width: 26rem;
     height: 26rem;
-    background: rgba(15, 143, 212, 0.25);
+    background: rgba(0, 163, 195, 0.25);
     animation: pgl-float 7s ease-in-out infinite;
 }
 .pgl .hero-orb-2 {
@@ -477,7 +482,7 @@
     right: 18%;
     width: 20rem;
     height: 20rem;
-    background: rgba(10, 118, 183, 0.2);
+    background: rgba(0, 137, 166, 0.2);
 }
 
 .pgl .hero h1 {
@@ -551,7 +556,7 @@
 .pgl .hero-card strong {
     color: var(--accent-deep);
     font:
-        800 2.7rem/1 Manrope,
+        800 2.7rem/1 Jost,
         sans-serif;
     letter-spacing: -0.02em;
 }
@@ -614,7 +619,7 @@
 }
 .pgl .proof-grid strong {
     font:
-        800 1.85rem Manrope,
+        800 1.85rem Jost,
         sans-serif;
     letter-spacing: -0.02em;
     background: linear-gradient(118deg, var(--navy) 0%, var(--blue) 92%);
@@ -681,7 +686,7 @@
     border-color: transparent;
     background: linear-gradient(
         158deg,
-        #0a4d82 0%,
+        #0d5f74 0%,
         var(--navy) 46%,
         var(--navy-deep) 100%
     );
@@ -770,7 +775,7 @@
     opacity: 0;
     background: radial-gradient(
         240px circle at var(--mx, 50%) var(--my, 50%),
-        rgba(15, 143, 212, 0.16),
+        rgba(0, 163, 195, 0.16),
         transparent 62%
     );
     transition: opacity 0.3s var(--ease);
@@ -790,7 +795,7 @@
        3.6:1; the deeper stop clears AA (>=4.5). */
     color: var(--accent-deep);
     font:
-        800 12px Manrope,
+        800 12px Jost,
         sans-serif;
     letter-spacing: 0.1em;
 }
@@ -825,7 +830,7 @@
     color: #fff;
     background: linear-gradient(150deg, var(--blue-bright), var(--navy));
     box-shadow:
-        0 8px 18px -8px rgba(6, 59, 104, 0.6),
+        0 8px 18px -8px rgba(22, 36, 62, 0.6),
         inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 .pgl .card-icon svg {
@@ -866,8 +871,8 @@
     z-index: 1;
     background: linear-gradient(
         45deg,
-        #052f52d9 0%,
-        #063b684d 55%,
+        #101a2ed9 0%,
+        #16243e4d 55%,
         transparent
     );
 }
@@ -877,7 +882,7 @@
     top: 34px;
     left: 34px;
     font:
-        800 5.6rem/1 Manrope,
+        800 5.6rem/1 Jost,
         sans-serif;
     letter-spacing: -0.08em;
     text-shadow: 0 8px 30px rgba(0, 20, 40, 0.5);
@@ -922,7 +927,7 @@
     border-radius: 50%;
     color: #fff;
     background: linear-gradient(150deg, var(--blue-bright), var(--navy));
-    box-shadow: 0 4px 10px -3px rgba(6, 59, 104, 0.6);
+    box-shadow: 0 4px 10px -3px rgba(22, 36, 62, 0.6);
     font-size: 12px;
     font-weight: 800;
 }
@@ -942,7 +947,7 @@
     pointer-events: none;
     background: radial-gradient(
         70% 80% at 85% 0%,
-        rgba(15, 143, 212, 0.3),
+        rgba(0, 163, 195, 0.3),
         transparent 60%
     );
 }
@@ -977,7 +982,7 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(45deg, #063b685c, transparent 52%);
+    background: linear-gradient(45deg, #16243e5c, transparent 52%);
 }
 .pgl .project-image > span {
     position: absolute;
@@ -986,7 +991,7 @@
     left: 22px;
     color: #fff;
     font:
-        800 3rem Manrope,
+        800 3rem Jost,
         sans-serif;
     letter-spacing: -0.08em;
     text-shadow: 0 6px 24px rgba(0, 20, 40, 0.55);
@@ -1100,7 +1105,7 @@
     overflow: hidden;
     padding: 100px 0;
     color: #fff;
-    background: linear-gradient(120deg, var(--navy-deep), #07568e);
+    background: linear-gradient(120deg, var(--navy-deep), #0a6076);
 }
 .pgl .consultation::before {
     content: '';
@@ -1110,7 +1115,7 @@
     background:
         radial-gradient(
             55% 90% at 10% 10%,
-            rgba(15, 143, 212, 0.35),
+            rgba(0, 163, 195, 0.35),
             transparent 55%
         ),
         radial-gradient(
@@ -1141,7 +1146,7 @@
 .pgl .site-footer {
     padding: 76px 0 20px;
     color: #c7dae5;
-    background: linear-gradient(180deg, var(--navy-ink), #061c2e);
+    background: linear-gradient(180deg, var(--navy-ink), #0b1220);
 }
 .pgl .footer-grid {
     display: grid;
@@ -1314,9 +1319,9 @@
     .pgl .hero-scrim {
         background: linear-gradient(
             180deg,
-            rgba(5, 29, 50, 0.84) 0%,
-            rgba(6, 44, 84, 0.62) 55%,
-            rgba(5, 29, 50, 0.8) 100%
+            rgba(10, 17, 30, 0.84) 0%,
+            rgba(22, 36, 62, 0.62) 55%,
+            rgba(10, 17, 30, 0.8) 100%
         );
     }
     .pgl .hero-card {
@@ -1473,12 +1478,12 @@
 /* Extra button variants used across sub-pages */
 .pgl .button-navy {
     color: #fff;
-    background: linear-gradient(180deg, #0a4c82, var(--navy));
+    background: linear-gradient(180deg, #0d5f74, var(--navy));
     border-color: transparent;
-    box-shadow: 0 10px 24px -12px rgba(6, 59, 104, 0.6);
+    box-shadow: 0 10px 24px -12px rgba(22, 36, 62, 0.6);
 }
 .pgl .button-navy:hover {
-    background: linear-gradient(180deg, #0a4c82, var(--navy-deep));
+    background: linear-gradient(180deg, #0d5f74, var(--navy-deep));
 }
 .pgl .button-outline {
     color: var(--navy);
@@ -1575,7 +1580,7 @@
     display: block;
     color: var(--accent-deep);
     font:
-        800 12px Manrope,
+        800 12px Jost,
         sans-serif;
     letter-spacing: 0.1em;
 }
@@ -1637,7 +1642,7 @@
 }
 .pgl .vm-quote blockquote {
     margin: 0;
-    font-family: Manrope, sans-serif;
+    font-family: Jost, sans-serif;
     font-size: 1.28rem;
     line-height: 1.32;
     letter-spacing: -0.02em;
@@ -1666,7 +1671,7 @@
 }
 .pgl .info-card h4 {
     margin: 0 0 8px;
-    font-family: Manrope, sans-serif;
+    font-family: Jost, sans-serif;
     font-size: 1.05rem;
     color: var(--navy);
 }
@@ -1728,7 +1733,7 @@
     width: 40px;
     height: 40px;
     margin-bottom: 10px;
-    color: #3a7ba3;
+    color: #2f8aa3;
 }
 
 /* Consultation / contact form */
@@ -1752,7 +1757,7 @@
     color: #fff;
     background: rgba(255, 255, 255, 0.1);
     font:
-        14px Inter,
+        14px Kumbh Sans,
         sans-serif;
     transition:
         border-color 0.2s,
@@ -1789,7 +1794,7 @@
     color: #fff;
     background: rgba(255, 255, 255, 0.1);
     font:
-        14px Inter,
+        14px Kumbh Sans,
         sans-serif;
     resize: vertical;
     transition:
@@ -1855,7 +1860,7 @@
     position: relative;
     height: 170px;
     overflow: hidden;
-    background: linear-gradient(140deg, #0a4d7d, #0f7fb8);
+    background: linear-gradient(140deg, #0d5f74, #007a94);
 }
 .pgl .portfolio-thumb::before {
     content: '';
@@ -1875,7 +1880,7 @@
     top: 15px;
     color: #fff;
     font:
-        800 1.7rem/1 Manrope,
+        800 1.7rem/1 Jost,
         sans-serif;
     letter-spacing: -0.05em;
 }
@@ -1885,7 +1890,7 @@
 .pgl .portfolio-body strong {
     display: block;
     color: var(--navy);
-    font-family: Manrope, sans-serif;
+    font-family: Jost, sans-serif;
 }
 .pgl .portfolio-body small {
     color: var(--steel);
@@ -1947,7 +1952,7 @@
     background: rgba(8, 47, 73, 0.82);
     color: #fff;
     font:
-        600 11.5px/1 Manrope,
+        600 11.5px/1 Jost,
         sans-serif;
     letter-spacing: 0.02em;
     backdrop-filter: blur(2px);
@@ -1958,7 +1963,7 @@
 .pgl .gallery-body strong {
     display: block;
     color: var(--navy);
-    font-family: Manrope, sans-serif;
+    font-family: Jost, sans-serif;
     font-size: 14.5px;
 }
 
@@ -2004,12 +2009,12 @@
 .pgl .legal-thumb-empty {
     display: grid;
     place-items: center;
-    background: linear-gradient(140deg, #0a4d7d, #0f7fb8);
+    background: linear-gradient(140deg, #0d5f74, #007a94);
 }
 .pgl .legal-thumb-empty span {
     color: #fff;
     font:
-        800 2rem/1 Manrope,
+        800 2rem/1 Jost,
         sans-serif;
     letter-spacing: -0.05em;
     opacity: 0.85;
@@ -2022,7 +2027,7 @@
 }
 .pgl .legal-body strong {
     color: var(--navy);
-    font-family: Manrope, sans-serif;
+    font-family: Jost, sans-serif;
     font-size: 15px;
 }
 .pgl .legal-body small {
@@ -2053,7 +2058,7 @@
     margin-top: 10px;
     font-size: 13px;
     font-weight: 700;
-    color: var(--brand, #0f7fb8);
+    color: var(--brand, #007a94);
 }
 .pgl .legal-download:hover {
     text-decoration: underline;
@@ -2092,7 +2097,7 @@
     background: #fff;
     color: var(--navy);
     font:
-        600 13px Inter,
+        600 13px Kumbh Sans,
         sans-serif;
     cursor: pointer;
     transition:
@@ -2111,14 +2116,14 @@
 }
 .pgl .filter-chip:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(15, 143, 212, 0.45);
+    box-shadow: 0 0 0 3px rgba(0, 163, 195, 0.45);
     border-radius: 8px;
 }
 .pgl .filter-chip.is-active {
     color: #fff;
-    background: linear-gradient(180deg, #0a4c82, var(--navy));
+    background: linear-gradient(180deg, #0d5f74, var(--navy));
     border-color: transparent;
-    box-shadow: 0 8px 20px -10px rgba(6, 59, 104, 0.6);
+    box-shadow: 0 8px 20px -10px rgba(22, 36, 62, 0.6);
 }
 
 /* Download cards */
@@ -2156,7 +2161,7 @@
     color: #fff;
     background: linear-gradient(150deg, var(--blue-bright), var(--navy));
     box-shadow:
-        0 8px 18px -8px rgba(6, 59, 104, 0.6),
+        0 8px 18px -8px rgba(22, 36, 62, 0.6),
         inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 .pgl .download-icon svg {
@@ -2222,7 +2227,7 @@
     padding: 18px 22px;
     cursor: pointer;
     list-style: none;
-    font-family: Manrope, sans-serif;
+    font-family: Jost, sans-serif;
     font-weight: 700;
     color: var(--navy);
 }
@@ -2287,7 +2292,7 @@
 .pgl .news-thumb {
     position: relative;
     height: 180px;
-    background: linear-gradient(140deg, #0a4d7d, #0f7fb8);
+    background: linear-gradient(140deg, #0d5f74, #007a94);
     overflow: hidden;
 }
 .pgl .news-thumb::before {
@@ -2362,7 +2367,7 @@
     height: 320px;
     margin-bottom: 28px;
     border-radius: var(--r-panel);
-    background: linear-gradient(140deg, #0a4d7d, #0f7fb8);
+    background: linear-gradient(140deg, #0d5f74, #007a94);
     box-shadow: var(--shadow-card);
 }
 .pgl .article p {
@@ -2407,8 +2412,8 @@
     background: #eef5fb;
 }
 .pgl .news-pagination a.is-active {
-    background: #0f7fb8;
-    border-color: #0f7fb8;
+    background: #007a94;
+    border-color: #007a94;
     color: #fff;
 }
 .pgl .news-pagination span {
@@ -2492,10 +2497,10 @@
 }
 @keyframes pgl-live-pulse {
     0% {
-        box-shadow: 0 0 0 0 rgba(15, 143, 212, 0.55);
+        box-shadow: 0 0 0 0 rgba(0, 163, 195, 0.55);
     }
     100% {
-        box-shadow: 0 0 0 9px rgba(15, 143, 212, 0);
+        box-shadow: 0 0 0 9px rgba(0, 163, 195, 0);
     }
 }
 @keyframes pgl-node-pulse {
@@ -2684,7 +2689,7 @@
     margin-left: auto;
     padding: 3px 9px;
     border-radius: 100px;
-    background: rgba(15, 143, 212, 0.12);
+    background: rgba(0, 163, 195, 0.12);
     color: var(--accent-deep);
     letter-spacing: 0.14em;
 }
@@ -2696,7 +2701,7 @@
 .pgl .mon-stat strong {
     color: var(--accent-deep);
     font:
-        800 2.5rem/1 Manrope,
+        800 2.5rem/1 Jost,
         sans-serif;
     letter-spacing: -0.02em;
 }
@@ -2713,7 +2718,7 @@
     overflow: visible;
 }
 .pgl .mon-spark-area {
-    fill: rgba(15, 143, 212, 0.12);
+    fill: rgba(0, 163, 195, 0.12);
     stroke: none;
 }
 .pgl .mon-spark-line {
@@ -2779,7 +2784,7 @@
     backdrop-filter: blur(3px);
     color: #eaf5fc;
     font:
-        700 11.5px/1 Manrope,
+        700 11.5px/1 Jost,
         sans-serif;
     letter-spacing: 0.02em;
 }
@@ -2792,7 +2797,7 @@
     color: #eaf5fc;
     background: linear-gradient(
         158deg,
-        #0a4d82 0%,
+        #0d5f74 0%,
         var(--navy) 52%,
         var(--navy-deep) 100%
     );
@@ -2805,7 +2810,7 @@
     pointer-events: none;
     background: radial-gradient(
         65% 80% at 88% 8%,
-        rgba(15, 143, 212, 0.32),
+        rgba(0, 163, 195, 0.32),
         transparent 60%
     );
 }
@@ -2842,7 +2847,7 @@
     padding: 34px 30px;
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: var(--r-panel);
-    background: rgba(6, 30, 52, 0.35);
+    background: rgba(11, 20, 40, 0.35);
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
 }
@@ -2864,7 +2869,7 @@
 .pgl .sugar-arrow {
     color: #7fd0f5;
     font:
-        800 2.6rem Manrope,
+        800 2.6rem Jost,
         sans-serif;
 }
 .pgl .crystal-motif {
@@ -2873,7 +2878,7 @@
     filter: drop-shadow(0 10px 24px rgba(0, 20, 40, 0.45));
 }
 .pgl .cube-face {
-    stroke: rgba(10, 118, 183, 0.45);
+    stroke: rgba(0, 137, 166, 0.45);
     stroke-width: 1.2;
     stroke-linejoin: round;
 }
@@ -2921,7 +2926,7 @@
 }
 .pgl .sugar-flow .sugar-step {
     font:
-        800 11px Manrope,
+        800 11px Jost,
         sans-serif;
     letter-spacing: 0.08em;
     color: #7fd0f5;
@@ -2929,7 +2934,7 @@
 .pgl .sugar-flow li:last-child {
     border-color: transparent;
     /* AA-safe gradient (matches .button) — white label needs >=4.5 contrast. */
-    background: linear-gradient(180deg, #0a76b7, #085f96);
+    background: linear-gradient(180deg, #007a94, #00697f);
     color: #fff;
     box-shadow: var(--shadow-cta);
 }
