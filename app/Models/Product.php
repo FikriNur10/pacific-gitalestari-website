@@ -23,7 +23,7 @@ use Mews\Purifier\Facades\Purifier;
  * @property string|null $category
  * @property string|null $summary
  * @property string|null $description
- * @property array<int, array{label: string|null, value: string|null}>|null $specs
+ * @property array<int, array{label: string|null, value: string|null, description?: string|null}>|null $specs
  * @property string|null $application
  * @property string|null $image_path
  * @property string|null $datasheet_path

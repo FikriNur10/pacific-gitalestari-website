@@ -28,7 +28,7 @@ export default function Faq({ groups }: PageProps) {
 
             <section className="pt-120 pb-120">
                 <div className="container">
-                    <div className="tp-section-title-wrapper text-center mb-50">
+                    <div className="tp-section-title-wrapper tp-section-intro mb-50">
                         <span className="tp-section-title-pre">FAQ</span>
                         <h1 className="tp-section-title">
                             Pertanyaan yang sering diajukan.

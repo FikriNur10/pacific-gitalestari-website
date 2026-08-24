@@ -46,7 +46,7 @@ export default function Galeri({
 
             <section className="pt-120 pb-90">
                 <div className="container">
-                    <div className="tp-section-title-wrapper text-center mb-50">
+                    <div className="tp-section-title-wrapper tp-section-intro mb-50">
                         <span className="tp-section-title-pre">Galeri</span>
                         <h1 className="tp-section-title">
                             Dokumentasi fasilitas, proyek, dan produk.
@@ -95,7 +95,7 @@ export default function Galeri({
                             Belum ada foto yang dipublikasikan.
                         </p>
                     ) : (
-                        <div className="row">
+                        <div className="row tp-card-row">
                             {items.data.map((item, index) => (
                                 <div
                                     key={`${item.title}-${index}`}
@@ -136,7 +136,9 @@ export default function Galeri({
                                         key={link.label}
                                         href={link.url}
                                         className={
-                                            link.active ? 'is-active' : undefined
+                                            link.active
+                                                ? 'is-active'
+                                                : undefined
                                         }
                                         dangerouslySetInnerHTML={{
                                             __html: link.label,
@@ -177,7 +179,8 @@ export default function Galeri({
                                         className="tp-btn tp-btn-white"
                                         href="/kontak#form"
                                     >
-                                        Hubungi tim kami <ArrowRight size={17} />
+                                        Hubungi tim kami{' '}
+                                        <ArrowRight size={17} />
                                     </a>
                                 </div>
                             </div>

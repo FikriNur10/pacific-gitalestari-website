@@ -33,7 +33,7 @@ export default function Solusi() {
             {/* ===== Service grid ===== */}
             <section className="pt-120 pb-90">
                 <div className="container">
-                    <div className="tp-section-title-wrapper text-center mb-50">
+                    <div className="tp-section-title-wrapper tp-section-intro mb-50">
                         <span className="tp-section-title-pre">Solusi</span>
                         <h1 className="tp-section-title">
                             Empat pilar solusi, satu mitra teknis.
@@ -45,9 +45,9 @@ export default function Solusi() {
                             dan target kinerja fasilitas Anda.
                         </p>
                     </div>
-                    <div className="row">
+                    <div className="row tp-card-row">
                         <div className="col-lg-6 col-md-6">
-                            <div className="tp-service-item mb-30 reveal">
+                            <div className="tp-service-item reveal mb-30">
                                 <span className="tp-service-number">01</span>
                                 <span className="tp-service-icon">
                                     <Droplets size={32} />
@@ -57,8 +57,9 @@ export default function Solusi() {
                                 </h3>
                                 <p>
                                     Perancangan, pengadaan, instalasi, operasi,
-                                    dan pemeliharaan sistem pengolahan air bersih
-                                    dan air limbah untuk kebutuhan industri.
+                                    dan pemeliharaan sistem pengolahan air
+                                    bersih dan air limbah untuk kebutuhan
+                                    industri.
                                 </p>
                                 <ul className="tp-service-specs">
                                     <li>Water Treatment Plant</li>
@@ -76,7 +77,7 @@ export default function Solusi() {
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-6">
-                            <div className="tp-service-item mb-30 reveal">
+                            <div className="tp-service-item reveal mb-30">
                                 <span className="tp-service-number">02</span>
                                 <span className="tp-service-icon">
                                     <FlaskConical size={32} />
@@ -87,8 +88,8 @@ export default function Solusi() {
                                 <p>
                                     Bahan kimia untuk cooling water, boiler,
                                     sugar processing, reverse osmosis, waste
-                                    water, dan demin plant — dengan fungsi teknis
-                                    spesifik per aplikasi.
+                                    water, dan demin plant — dengan fungsi
+                                    teknis spesifik per aplikasi.
                                 </p>
                                 <ul className="tp-service-specs">
                                     <li>Cooling &amp; Boiler</li>
@@ -105,7 +106,7 @@ export default function Solusi() {
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-6">
-                            <div className="tp-service-item mb-30 reveal">
+                            <div className="tp-service-item reveal mb-30">
                                 <span className="tp-service-number">03</span>
                                 <span className="tp-service-icon">
                                     <Zap size={32} />
@@ -114,9 +115,9 @@ export default function Solusi() {
                                     Power &amp; Diesel Rental
                                 </h3>
                                 <p>
-                                    Penyewaan mesin diesel (PLTD) untuk kebutuhan
-                                    daya industri dan infrastruktur, termasuk
-                                    dukungan pemeliharaan.
+                                    Penyewaan mesin diesel (PLTD) untuk
+                                    kebutuhan daya industri dan infrastruktur,
+                                    termasuk dukungan pemeliharaan.
                                 </p>
                                 <ul className="tp-service-specs">
                                     <li>Diesel engine rental</li>
@@ -129,7 +130,7 @@ export default function Solusi() {
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-6">
-                            <div className="tp-service-item mb-30 reveal">
+                            <div className="tp-service-item reveal mb-30">
                                 <span className="tp-service-number">04</span>
                                 <span className="tp-service-icon">
                                     <ShieldCheck size={32} />
@@ -242,7 +243,9 @@ export default function Solusi() {
                                 <span>Paraffin inhibitor &amp; pour point</span>
                                 <span>Corrosion inhibitor compatibility</span>
                                 <span>Biocide kill &amp; performance test</span>
-                                <span>Liquid-solid separation &amp; titration</span>
+                                <span>
+                                    Liquid-solid separation &amp; titration
+                                </span>
                                 <span>System survey &amp; line tracing</span>
                                 <span>Chemical application field trial</span>
                                 <span>Commissioning</span>
@@ -265,9 +268,9 @@ export default function Solusi() {
                                     Belum yakin solusi mana yang sesuai?
                                 </h2>
                                 <p>
-                                    Ceritakan kondisi fasilitas Anda — tim teknis
-                                    PGL akan bantu memetakan pendekatan yang
-                                    tepat.
+                                    Ceritakan kondisi fasilitas Anda — tim
+                                    teknis PGL akan bantu memetakan pendekatan
+                                    yang tepat.
                                 </p>
                             </div>
                             <div className="col-lg-4">

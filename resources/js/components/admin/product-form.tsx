@@ -10,6 +10,8 @@ import { index as produkKimiaIndex } from '@/routes/admin/produk-kimia';
 export type SpecRow = {
     label: string;
     value: string;
+    // Optional long-form text shown in the public spec popup (produk-kimia).
+    description?: string;
 };
 
 export type ProductFormValues = {
@@ -65,7 +67,10 @@ export default function ProductForm({
     });
 
     const addSpec = () => {
-        form.setData('specs', [...form.data.specs, { label: '', value: '' }]);
+        form.setData('specs', [
+            ...form.data.specs,
+            { label: '', value: '', description: '' },
+        ]);
     };
 
     const removeSpec = (index: number) => {
@@ -212,31 +217,46 @@ export default function ProductForm({
                     </p>
                 )}
                 {form.data.specs.map((row, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                        <Input
-                            aria-label={`Label spesifikasi ${index + 1}`}
-                            placeholder="Label"
-                            value={row.label}
+                    <div
+                        key={index}
+                        className="grid gap-2 rounded-md border p-3"
+                    >
+                        <div className="flex items-start gap-2">
+                            <Input
+                                aria-label={`Label spesifikasi ${index + 1}`}
+                                placeholder="Label"
+                                value={row.label}
+                                onChange={(e) =>
+                                    updateSpec(index, 'label', e.target.value)
+                                }
+                            />
+                            <Input
+                                aria-label={`Nilai spesifikasi ${index + 1}`}
+                                placeholder="Nilai"
+                                value={row.value}
+                                onChange={(e) =>
+                                    updateSpec(index, 'value', e.target.value)
+                                }
+                            />
+                            <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => removeSpec(index)}
+                            >
+                                Hapus
+                            </Button>
+                        </div>
+                        <textarea
+                            aria-label={`Deskripsi spesifikasi ${index + 1}`}
+                            className={FIELD}
+                            rows={2}
+                            placeholder="Deskripsi (tampil di popup saat pill diklik)"
+                            value={row.description ?? ''}
                             onChange={(e) =>
-                                updateSpec(index, 'label', e.target.value)
+                                updateSpec(index, 'description', e.target.value)
                             }
                         />
-                        <Input
-                            aria-label={`Nilai spesifikasi ${index + 1}`}
-                            placeholder="Nilai"
-                            value={row.value}
-                            onChange={(e) =>
-                                updateSpec(index, 'value', e.target.value)
-                            }
-                        />
-                        <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => removeSpec(index)}
-                        >
-                            Hapus
-                        </Button>
                     </div>
                 ))}
                 <InputError message={form.errors.specs} />

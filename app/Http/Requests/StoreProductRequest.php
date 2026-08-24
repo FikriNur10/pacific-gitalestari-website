@@ -34,6 +34,7 @@ class StoreProductRequest extends FormRequest
             'specs' => ['nullable', 'array'],
             'specs.*.label' => ['nullable', 'string', 'max:120'],
             'specs.*.value' => ['nullable', 'string', 'max:200'],
+            'specs.*.description' => ['nullable', 'string', 'max:2000'],
             'application' => ['nullable', 'string', 'max:2000'],
             'image' => ['nullable', 'image', 'max:4096'],
             'datasheet' => ['nullable', 'file', 'mimes:pdf', 'max:8192'],

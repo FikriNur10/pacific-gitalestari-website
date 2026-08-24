@@ -108,8 +108,9 @@ export default function Tentang() {
                                             Engine Rental
                                         </li>
                                         <li>
-                                            <CheckCircle2 size={20} /> Specialist
-                                            applicator (repair, waterproofing)
+                                            <CheckCircle2 size={20} />{' '}
+                                            Specialist applicator (repair,
+                                            waterproofing)
                                         </li>
                                     </ul>
                                 </div>
@@ -125,7 +126,7 @@ export default function Tentang() {
             {/* ===== Vision & Mission ===== */}
             <section className="section-mist pt-120 pb-120">
                 <div className="container">
-                    <div className="tp-section-title-wrapper text-center mb-50">
+                    <div className="tp-section-title-wrapper tp-section-intro mb-50">
                         <span className="tp-section-title-pre">
                             Visi &amp; Misi
                         </span>
@@ -197,7 +198,9 @@ export default function Tentang() {
                                 Laboratorium eksternal
                             </h3>
                             <div className="tp-chip-list">
-                                <span>Corrosion RCE &amp; stirred autoclave</span>
+                                <span>
+                                    Corrosion RCE &amp; stirred autoclave
+                                </span>
                                 <span>Mud laboratory</span>
                                 <span>Stimulation laboratory</span>
                             </div>
@@ -209,15 +212,17 @@ export default function Tentang() {
             {/* ===== Work culture (4 values) ===== */}
             <section className="tp-service-area pt-120 pb-90">
                 <div className="container">
-                    <div className="tp-section-title-wrapper text-center mb-50">
-                        <span className="tp-section-title-pre">Budaya kerja</span>
+                    <div className="tp-section-title-wrapper tp-section-intro mb-50">
+                        <span className="tp-section-title-pre">
+                            Budaya kerja
+                        </span>
                         <h2 className="tp-section-title">
                             Empat prinsip yang menjaga mutu di lapangan.
                         </h2>
                     </div>
-                    <div className="row">
+                    <div className="row tp-card-row">
                         <div className="col-lg-3 col-md-6">
-                            <div className="tp-service-item mb-30 reveal">
+                            <div className="tp-service-item reveal mb-30">
                                 <span className="tp-service-icon">
                                     <Sparkles size={32} />
                                 </span>
@@ -229,7 +234,7 @@ export default function Tentang() {
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-6">
-                            <div className="tp-service-item mb-30 reveal">
+                            <div className="tp-service-item reveal mb-30">
                                 <span className="tp-service-icon">
                                     <ClipboardCheck size={32} />
                                 </span>
@@ -241,11 +246,13 @@ export default function Tentang() {
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-6">
-                            <div className="tp-service-item mb-30 reveal">
+                            <div className="tp-service-item reveal mb-30">
                                 <span className="tp-service-icon">
                                     <Leaf size={32} />
                                 </span>
-                                <h4 className="tp-service-title">Kelestarian</h4>
+                                <h4 className="tp-service-title">
+                                    Kelestarian
+                                </h4>
                                 <p>
                                     Pengelolaan air dan limbah yang bertanggung
                                     jawab terhadap lingkungan.
@@ -253,11 +260,13 @@ export default function Tentang() {
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-6">
-                            <div className="tp-service-item mb-30 reveal">
+                            <div className="tp-service-item reveal mb-30">
                                 <span className="tp-service-icon">
                                     <ShieldCheck size={32} />
                                 </span>
-                                <h4 className="tp-service-title">Kedisiplinan</h4>
+                                <h4 className="tp-service-title">
+                                    Kedisiplinan
+                                </h4>
                                 <p>
                                     Komitmen pada jadwal, mutu, dan standar
                                     teknis yang disepakati.

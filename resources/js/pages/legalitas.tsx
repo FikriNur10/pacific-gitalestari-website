@@ -52,7 +52,7 @@ export default function Legalitas({ documents }: PageProps) {
 
             <section className="pt-120 pb-90">
                 <div className="container">
-                    <div className="tp-section-title-wrapper text-center mb-50">
+                    <div className="tp-section-title-wrapper tp-section-intro mb-50">
                         <span className="tp-section-title-pre">
                             Legalitas &amp; Sertifikasi
                         </span>
@@ -78,7 +78,7 @@ export default function Legalitas({ documents }: PageProps) {
                                         {category}
                                     </span>
                                 </div>
-                                <div className="row">
+                                <div className="row tp-card-row">
                                     {documents
                                         .filter(
                                             (doc) =>
@@ -90,7 +90,7 @@ export default function Legalitas({ documents }: PageProps) {
                                                 key={doc.id}
                                                 className="col-lg-4 col-md-6"
                                             >
-                                                <article className="legal-card mb-30 reveal">
+                                                <article className="legal-card reveal mb-30">
                                                     {doc.imageUrl ? (
                                                         <div className="legal-thumb">
                                                             <img
@@ -203,7 +203,8 @@ export default function Legalitas({ documents }: PageProps) {
                                         className="tp-btn tp-btn-white"
                                         href="/kontak#form"
                                     >
-                                        Hubungi tim kami <ArrowRight size={17} />
+                                        Hubungi tim kami{' '}
+                                        <ArrowRight size={17} />
                                     </a>
                                 </div>
                             </div>
