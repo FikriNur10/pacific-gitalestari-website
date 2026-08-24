@@ -138,6 +138,9 @@
 .pgl .align-items-start {
     align-items: flex-start;
 }
+.pgl .align-items-end {
+    align-items: flex-end;
+}
 .pgl .justify-content-center {
     justify-content: center;
 }
@@ -480,7 +483,7 @@
         display: block;
     }
 }
-.pgl .tp-main-menu ul {
+.pgl .tp-main-menu > ul {
     display: flex;
     align-items: center;
     gap: 30px;
@@ -488,17 +491,29 @@
     padding: 0;
     list-style: none;
 }
-.pgl .tp-main-menu a {
+.pgl .tp-main-menu > ul > li {
     position: relative;
-    display: inline-block;
+}
+/* Top-level entries: a leaf <a> and a dropdown <button> share one look. */
+.pgl .tp-main-menu > ul > li > a,
+.pgl .tp-submenu-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     padding: 6px 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
     color: var(--navy);
     font-family: Jost, sans-serif;
     font-weight: 600;
     font-size: 15px;
+    line-height: 1;
     transition: color 0.2s;
 }
-.pgl .tp-main-menu a::after {
+.pgl .tp-main-menu > ul > li > a::after,
+.pgl .tp-submenu-toggle::after {
     content: '';
     position: absolute;
     left: 0;
@@ -509,13 +524,73 @@
     background: var(--accent);
     transition: right 0.25s var(--ease);
 }
-.pgl .tp-main-menu a:hover,
-.pgl .tp-main-menu a[aria-current='page'] {
+.pgl .tp-main-menu > ul > li > a:hover,
+.pgl .tp-main-menu > ul > li > a[aria-current='page'],
+.pgl .tp-submenu-toggle:hover,
+.pgl .tp-submenu-toggle[aria-current='page'],
+.pgl .tp-menu-has-dropdown.is-open > .tp-submenu-toggle {
     color: var(--accent);
 }
-.pgl .tp-main-menu a:hover::after,
-.pgl .tp-main-menu a[aria-current='page']::after {
+.pgl .tp-main-menu > ul > li > a:hover::after,
+.pgl .tp-main-menu > ul > li > a[aria-current='page']::after,
+.pgl .tp-submenu-toggle:hover::after,
+.pgl .tp-submenu-toggle[aria-current='page']::after {
     right: 0;
+}
+/* Chevron flips when the dropdown is open. */
+.pgl .tp-submenu-toggle svg {
+    transition: transform 0.25s var(--ease);
+}
+.pgl .tp-menu-has-dropdown.is-open > .tp-submenu-toggle svg {
+    transform: rotate(180deg);
+}
+/* Dropdown panel — hover or click opens it (see LandingHeader). */
+.pgl .tp-submenu {
+    position: absolute;
+    top: 100%;
+    left: -18px;
+    z-index: 60;
+    min-width: 214px;
+    margin: 0;
+    padding: 10px;
+    list-style: none;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 20px 44px -20px rgba(22, 36, 62, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition:
+        opacity 0.22s var(--ease),
+        transform 0.22s var(--ease),
+        visibility 0.22s var(--ease);
+}
+.pgl .tp-menu-has-dropdown.is-open > .tp-submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+.pgl .tp-submenu > li + li {
+    margin-top: 2px;
+}
+.pgl .tp-submenu a {
+    display: block;
+    padding: 9px 12px;
+    border-radius: 9px;
+    color: var(--navy);
+    font-family: Jost, sans-serif;
+    font-weight: 600;
+    font-size: 14.5px;
+    white-space: nowrap;
+    transition:
+        color 0.18s,
+        background 0.18s;
+}
+.pgl .tp-submenu a:hover,
+.pgl .tp-submenu a[aria-current='page'] {
+    color: var(--accent);
+    background: var(--mist);
 }
 
 .pgl .tp-header-right {
@@ -632,15 +707,50 @@
     flex-direction: column;
     margin-bottom: 34px;
 }
-.pgl .tp-offcanvas-nav a {
+.pgl .tp-offcanvas-nav > a,
+.pgl .tp-offcanvas-group > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 13px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: #dceaf2;
     font-family: Jost, sans-serif;
     font-weight: 600;
 }
-.pgl .tp-offcanvas-nav a:hover,
-.pgl .tp-offcanvas-nav a[aria-current='page'] {
+.pgl .tp-offcanvas-nav > a:hover,
+.pgl .tp-offcanvas-nav > a[aria-current='page'] {
+    color: var(--accent-hi);
+}
+/* Grouped submenu (native <details> accordion) */
+.pgl .tp-offcanvas-group > summary {
+    cursor: pointer;
+    list-style: none;
+}
+.pgl .tp-offcanvas-group > summary::-webkit-details-marker {
+    display: none;
+}
+.pgl .tp-offcanvas-group > summary svg {
+    transition: transform 0.25s var(--ease);
+}
+.pgl .tp-offcanvas-group[open] > summary svg {
+    transform: rotate(180deg);
+}
+.pgl .tp-offcanvas-subnav {
+    display: flex;
+    flex-direction: column;
+    padding-left: 14px;
+}
+.pgl .tp-offcanvas-subnav a {
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    color: #b9cede;
+    font-family: Jost, sans-serif;
+    font-weight: 600;
+    font-size: 14.5px;
+}
+.pgl .tp-offcanvas-subnav a:hover,
+.pgl .tp-offcanvas-subnav a[aria-current='page'] {
     color: var(--accent-hi);
 }
 .pgl .tp-offcanvas .tp-btn {
@@ -1046,6 +1156,11 @@
 }
 .pgl .tp-service-item {
     position: relative;
+    /* Flex column so the "Pelajari solusi" link can be pinned to the card bottom
+       (margin-top:auto) — keeps links aligned across the 2×2 home grid and the
+       Solusi/Proteksi catalog rows regardless of body-copy length. */
+    display: flex;
+    flex-direction: column;
     height: 100%;
     padding: 38px 32px;
     background: #fff;
@@ -1122,7 +1237,9 @@
 .pgl .tp-service-link {
     display: inline-flex;
     align-items: center;
+    align-self: flex-start;
     gap: 8px;
+    margin-top: auto;
     color: var(--navy);
     font-family: Jost, sans-serif;
     font-weight: 700;
@@ -1858,5 +1975,530 @@
     }
     .pgl .tp-contact-box {
         padding: 28px;
+    }
+}
+
+/* ==========================================================================
+   "Landing Improved" home additions — richer sections layered on the finbest
+   base. Every selector stays `.pgl`-scoped and reuses the shared tokens.
+   ========================================================================== */
+
+/* ===== Shared section header (title left, action/copy right) ============= */
+
+.pgl .tp-section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 28px 48px;
+    margin-bottom: 44px;
+}
+.pgl .tp-section-head > .tp-section-title-wrapper {
+    max-width: 640px;
+}
+.pgl .tp-section-head .tp-section-title {
+    margin-bottom: 0;
+}
+.pgl .tp-section-head-note {
+    max-width: 340px;
+}
+
+/* Text link (arrow) — pairs with tp-btn as a secondary action. */
+.pgl .tp-text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--navy);
+    font-family: Jost, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+.pgl .tp-text-link svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s var(--ease);
+}
+.pgl .tp-text-link:hover {
+    color: var(--accent);
+}
+.pgl .tp-text-link:hover svg {
+    transform: translateX(4px);
+}
+.pgl .tp-text-link--light {
+    color: #fff;
+}
+.pgl .tp-text-link--light:hover {
+    color: var(--accent-hi);
+}
+
+/* ===== Home solution cards — design-faithful header ==================== */
+
+/* Real 2-col CSS grid (matches the design's grid-template-columns:1fr 1fr;gap:24px).
+   The Bootstrap flex .row + per-item margin-bottom gave no vertical gap between the
+   wrapped rows once the equal-height (height:100%) cards absorbed the margin — grid
+   row/column gaps are reliable regardless of card height. */
+.pgl .tp-solutions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+@media (max-width: 767px) {
+    .pgl .tp-solutions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.pgl .tp-service-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+/* The improved-design "Solusi utama" cards carry a small inline number beside the
+   icon (in .tp-service-head), 40px padding, and a 64px icon — distinct from the
+   big faint corner digit the Solusi/Proteksi catalog cards keep (those have no
+   .tp-service-head, so the base .tp-service-number stays absolute). */
+.pgl .tp-solutions .tp-service-item {
+    padding: 40px;
+}
+.pgl .tp-solutions .tp-service-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 0;
+}
+.pgl .tp-solutions .tp-service-icon svg {
+    width: 30px;
+    height: 30px;
+}
+.pgl .tp-solutions .tp-service-number {
+    position: static;
+    font-size: 1.05rem;
+    color: #c9ced6;
+    letter-spacing: 0.08em;
+}
+.pgl .tp-solutions .tp-service-title {
+    font-size: 1.45rem;
+}
+@media (max-width: 991px) {
+    .pgl .tp-solutions .tp-service-item {
+        padding: 32px 28px;
+    }
+}
+
+/* ===== Hero trust bullets =============================================== */
+
+.pgl .tp-hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin-top: 34px;
+    padding-top: 26px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.pgl .tp-hero-trust span {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #bcd3df;
+    font-size: 14px;
+    font-weight: 600;
+}
+.pgl .tp-hero-trust svg {
+    flex: none;
+    width: 17px;
+    height: 17px;
+    color: var(--accent-hi);
+}
+
+/* ===== Stat card — public-client cell variant ========================== */
+
+.pgl .tp-counter-item--client {
+    text-align: left;
+    background: var(--mist);
+    border-right: 0;
+}
+.pgl .tp-counter-item--client .tp-counter-eyebrow {
+    margin: 0 0 8px;
+    color: var(--accent-deep);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+.pgl .tp-counter-item--client .tp-counter-client {
+    color: var(--navy);
+    font-family: Jost, sans-serif;
+    font-weight: 700;
+    font-size: 1.24rem;
+    line-height: 1.25;
+}
+.pgl .tp-counter-item--client p {
+    margin: 6px 0 0;
+    color: var(--steel);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* ===== About — twin stat cards under the image ========================= */
+
+.pgl .tp-about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-top: 20px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+}
+.pgl .tp-about-stats > div {
+    padding: 22px 24px;
+    background: #fff;
+}
+.pgl .tp-about-stats strong {
+    display: flex;
+    align-items: baseline;
+    color: var(--navy);
+    font-family: Jost, sans-serif;
+    font-weight: 800;
+    font-size: 2.1rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+.pgl .tp-about-stats strong span:last-child {
+    color: var(--accent);
+}
+.pgl .tp-about-stats p {
+    margin: 6px 0 0;
+    color: var(--steel);
+    font-size: 13px;
+    font-weight: 600;
+}
+.pgl .tp-about-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 22px;
+}
+
+/* ===== Chemical catalog cards ========================================== */
+
+.pgl .tp-chem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.pgl .tp-chem-card {
+    padding: 30px 28px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    transition:
+        transform 0.25s var(--ease),
+        border-color 0.25s var(--ease),
+        box-shadow 0.25s var(--ease);
+}
+.pgl .tp-chem-card:hover {
+    transform: translateY(-4px);
+    border-color: #c9e6ee;
+    box-shadow: var(--shadow-card);
+}
+.pgl .tp-chem-no {
+    margin: 0 0 12px;
+    color: var(--accent-deep);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+.pgl .tp-chem-card h3 {
+    margin: 0 0 10px;
+    font-family: Jost, sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.25;
+    color: var(--navy);
+}
+.pgl .tp-chem-card p {
+    margin: 0;
+    color: var(--steel);
+    font-size: 14.5px;
+}
+@media (max-width: 991px) {
+    .pgl .tp-chem-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 575px) {
+    .pgl .tp-chem-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== Sugar-processing flow ========================================== */
+
+.pgl .tp-flow-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+}
+.pgl .tp-flow-step {
+    position: relative;
+    padding: 24px 20px 22px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--line);
+    border-radius: 14px;
+}
+/* Stages where PGL chemistry intervenes get the accent top-rule. */
+.pgl .tp-flow-step.is-active {
+    border-top-color: var(--accent);
+}
+.pgl .tp-flow-no {
+    display: block;
+    margin-bottom: 10px;
+    color: #c9ced6;
+    font-family: Jost, sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+}
+.pgl .tp-flow-step h3 {
+    margin: 0 0 8px;
+    font-family: Jost, sans-serif;
+    font-weight: 700;
+    font-size: 1.02rem;
+    line-height: 1.3;
+    color: var(--navy);
+}
+.pgl .tp-flow-step p {
+    margin: 0;
+    min-height: 2.4em;
+    color: var(--steel);
+    font-size: 12.5px;
+    line-height: 1.55;
+}
+.pgl .tp-flow-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 22px;
+}
+.pgl .tp-flow-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--steel);
+    font-size: 13.5px;
+    font-weight: 600;
+}
+.pgl .tp-flow-legend::before {
+    content: '';
+    width: 20px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--accent);
+}
+@media (max-width: 991px) {
+    .pgl .tp-flow-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 575px) {
+    .pgl .tp-flow-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ===== Home portfolio cards (CMS-backed grid) ========================== */
+
+.pgl .tp-portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+.pgl .tp-portfolio-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow-card);
+    transition:
+        transform 0.3s var(--ease),
+        box-shadow 0.3s var(--ease);
+}
+.pgl .tp-portfolio-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card-hover);
+}
+.pgl .tp-portfolio-thumb {
+    position: relative;
+    display: block;
+    height: 230px;
+    overflow: hidden;
+}
+.pgl .tp-portfolio-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease);
+}
+.pgl .tp-portfolio-card:hover .tp-portfolio-thumb img {
+    transform: scale(1.06);
+}
+.pgl .tp-portfolio-badge {
+    position: absolute;
+    z-index: 2;
+    left: 16px;
+    top: 16px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: rgba(11, 18, 32, 0.6);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    font-family: 'Kumbh Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+}
+.pgl .tp-portfolio-body {
+    padding: 26px 24px 28px;
+}
+.pgl .tp-portfolio-eyebrow {
+    margin: 0 0 8px;
+    color: var(--accent-deep);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+.pgl .tp-portfolio-title {
+    margin: 0 0 8px;
+    font-family: Jost, sans-serif;
+    font-weight: 700;
+    font-size: 1.28rem;
+    line-height: 1.25;
+    color: var(--navy);
+}
+.pgl .tp-portfolio-title a:hover {
+    color: var(--accent);
+}
+.pgl .tp-portfolio-body > p {
+    margin: 0;
+    color: var(--steel);
+    font-size: 14px;
+}
+@media (max-width: 991px) {
+    .pgl .tp-portfolio-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 575px) {
+    .pgl .tp-portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== Legalitas / certificate band (navy) ============================ */
+
+.pgl .tp-legal-area {
+    background: var(--navy);
+    color: #fff;
+}
+.pgl .tp-legal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+.pgl .tp-legal-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    transition:
+        transform 0.2s var(--ease),
+        border-color 0.2s;
+}
+.pgl .tp-legal-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-hi);
+}
+.pgl .tp-legal-thumb {
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+}
+.pgl .tp-legal-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* Titled fallback when a document carries no preview image. */
+.pgl .tp-legal-fallback {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 3;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--accent-hi);
+}
+.pgl .tp-legal-caption {
+    padding: 12px 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.pgl .tp-legal-caption strong {
+    display: block;
+    color: #fff;
+    font-family: Jost, sans-serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    line-height: 1.3;
+}
+.pgl .tp-legal-caption span {
+    display: block;
+    margin-top: 3px;
+    color: #9fb3c1;
+    font-size: 12px;
+}
+@media (max-width: 767px) {
+    .pgl .tp-legal-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ===== CTA band — stacked actions (button + phone) ==================== */
+
+.pgl .tp-cta-actions--stack {
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 14px;
+}
+.pgl .tp-cta-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #fff;
+    font-family: Jost, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+}
+.pgl .tp-cta-phone svg {
+    width: 17px;
+    height: 17px;
+}
+.pgl .tp-cta-phone:hover {
+    color: #eafaff;
+}
+@media (max-width: 991px) {
+    .pgl .tp-cta-actions--stack {
+        align-items: flex-start;
     }
 }

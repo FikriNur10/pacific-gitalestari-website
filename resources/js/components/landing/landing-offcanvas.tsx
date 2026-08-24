@@ -1,5 +1,5 @@
-import { ArrowRight, Mail, MapPin, Phone, X } from 'lucide-react';
-import { NAV_LINKS, WHATSAPP_URL } from '@/lib/landing';
+import { ArrowRight, ChevronDown, Mail, MapPin, Phone, X } from 'lucide-react';
+import { isNavGroup, NAV_ITEMS, WHATSAPP_URL } from '@/lib/landing';
 
 interface LandingOffcanvasProps {
     open: boolean;
@@ -53,18 +53,59 @@ export default function LandingOffcanvas({
                 </div>
 
                 <nav className="tp-offcanvas-nav" aria-label="Menu utama">
-                    {NAV_LINKS.map((link) => (
-                        <a
-                            key={link.href}
-                            href={link.href}
-                            aria-current={
-                                currentPath === link.href ? 'page' : undefined
-                            }
-                            onClick={onClose}
-                        >
-                            {link.label}
-                        </a>
-                    ))}
+                    {NAV_ITEMS.map((item) => {
+                        if (!isNavGroup(item)) {
+                            return (
+                                <a
+                                    key={item.href}
+                                    href={item.href}
+                                    aria-current={
+                                        currentPath === item.href
+                                            ? 'page'
+                                            : undefined
+                                    }
+                                    onClick={onClose}
+                                >
+                                    {item.label}
+                                </a>
+                            );
+                        }
+
+                        // Open the group that holds the current page so the active
+                        // link is visible without an extra tap.
+                        const containsCurrent = item.children.some(
+                            (child) => child.href === currentPath,
+                        );
+
+                        return (
+                            <details
+                                key={item.label}
+                                className="tp-offcanvas-group"
+                                open={containsCurrent}
+                            >
+                                <summary>
+                                    {item.label}
+                                    <ChevronDown size={16} aria-hidden="true" />
+                                </summary>
+                                <div className="tp-offcanvas-subnav">
+                                    {item.children.map((child) => (
+                                        <a
+                                            key={child.href}
+                                            href={child.href}
+                                            aria-current={
+                                                currentPath === child.href
+                                                    ? 'page'
+                                                    : undefined
+                                            }
+                                            onClick={onClose}
+                                        >
+                                            {child.label}
+                                        </a>
+                                    ))}
+                                </div>
+                            </details>
+                        );
+                    })}
                 </nav>
 
                 <a

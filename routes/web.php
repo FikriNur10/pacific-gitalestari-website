@@ -5,6 +5,7 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DownloadController as PublicDownloadController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\LegalitasController;
 use App\Http\Controllers\ProdukKimiaController;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 // scoped to this group only — first-party analytics never touches admin/auth/system
 // routes because they simply don't carry the middleware.
 Route::middleware(RecordPageView::class)->group(function () {
-    Route::inertia('/', 'landing')->name('home');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::inertia('/tentang', 'tentang')->name('tentang');
     Route::inertia('/solusi', 'solusi')->name('solusi');
