@@ -29,6 +29,17 @@
     width: 100%;
     padding: 0 12px;
 }
+/* Card grids need a real vertical gap between wrapped rows. The cards' own
+   margin-bottom is unreliable in a flex .row — height:100% cards (.tp-service-item)
+   swallow it in the stretched line — so the row owns the vertical rhythm via
+   row-gap and the card margins are zeroed. Horizontal gutter stays the col padding
+   (24px). Applied only to rows tagged .tp-card-row (card grids), never content rows. */
+.pgl .row.tp-card-row {
+    row-gap: 30px;
+}
+.pgl .row.tp-card-row > [class*='col-'] > * {
+    margin-bottom: 0;
+}
 .pgl .col-6 {
     width: 50%;
 }
@@ -289,6 +300,12 @@
     color: var(--steel);
     font-size: 1.02rem;
 }
+/* Left-aligned inner-page intro header (replaces the old .text-center on the
+   section-title-wrapper). max-width keeps the sub-copy at a readable measure
+   instead of running the full container width. */
+.pgl .tp-section-intro {
+    max-width: 760px;
+}
 
 /* ===== Button (pill gradient, finbest tp-btn) ============================ */
 
@@ -548,7 +565,10 @@
 .pgl .tp-submenu {
     position: absolute;
     top: 100%;
-    left: -18px;
+    /* Right-aligned to the toggle (panel's right edge sits flush under the
+       chevron) instead of bleeding out to the left. */
+    left: auto;
+    right: -18px;
     z-index: 60;
     min-width: 214px;
     margin: 0;
@@ -2500,5 +2520,133 @@
 @media (max-width: 991px) {
     .pgl .tp-cta-actions--stack {
         align-items: flex-start;
+    }
+}
+
+/* ===== Interactive spec chips + detail popup (produk-kimia) ============ */
+
+.pgl .tp-spec-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+}
+.pgl .tp-spec-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    background: var(--mist);
+    color: var(--navy);
+    font-family: 'Kumbh Sans', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        color 0.18s,
+        border-color 0.18s,
+        background 0.18s,
+        transform 0.18s var(--ease);
+}
+.pgl .tp-spec-chip svg {
+    color: var(--accent);
+    opacity: 0.7;
+}
+.pgl .tp-spec-chip:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    color: var(--accent);
+    background: #fff;
+}
+.pgl .tp-spec-chip:hover svg {
+    opacity: 1;
+}
+
+/* Popup — reused for any spec detail. Overlay closes on click; panel stops it. */
+.pgl .tp-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: rgba(11, 18, 32, 0.55);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    animation: pgl-modal-fade 0.2s var(--ease);
+}
+.pgl .tp-modal {
+    position: relative;
+    width: min(440px, 100%);
+    padding: 34px 32px 30px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: var(--shadow-float);
+    animation: pgl-modal-pop 0.25s var(--ease);
+}
+.pgl .tp-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: #fff;
+    color: var(--steel);
+    cursor: pointer;
+    transition:
+        color 0.18s,
+        border-color 0.18s;
+}
+.pgl .tp-modal-close:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+.pgl .tp-modal-eyebrow {
+    margin: 0 0 8px;
+    color: var(--accent-deep);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+.pgl .tp-modal-title {
+    margin: 0 0 12px;
+    padding-right: 30px;
+    font-family: Jost, sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    color: var(--navy);
+}
+.pgl .tp-modal-body {
+    margin: 0;
+    color: var(--steel);
+    font-size: 15px;
+    line-height: 1.65;
+}
+@keyframes pgl-modal-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes pgl-modal-pop {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: none;
     }
 }

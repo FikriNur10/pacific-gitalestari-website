@@ -43,7 +43,7 @@ export default function Download({ downloads, categories }: PageProps) {
 
             <section className="pt-120 pb-90">
                 <div className="container">
-                    <div className="tp-section-title-wrapper text-center mb-50">
+                    <div className="tp-section-title-wrapper tp-section-intro mb-50">
                         <span className="tp-section-title-pre">
                             Download Center
                         </span>
@@ -90,14 +90,14 @@ export default function Download({ downloads, categories }: PageProps) {
                             Belum ada dokumen untuk diunduh saat ini.
                         </p>
                     ) : (
-                        <div className="row" id="download-list">
+                        <div className="row tp-card-row" id="download-list">
                             {downloads.map((item) => (
                                 <div
                                     key={item.id}
                                     className="col-lg-4 col-md-6"
                                     data-category={item.categorySlug}
                                 >
-                                    <article className="download-card mb-30 reveal">
+                                    <article className="download-card reveal mb-30">
                                         <div className="download-head">
                                             <span
                                                 className="download-icon"

@@ -66,7 +66,10 @@ export default function Kontak() {
                                         Mari bicarakan kebutuhan teknis Anda.
                                     </h1>
                                 </div>
-                                <form className="tp-contact-form" onSubmit={submit}>
+                                <form
+                                    className="tp-contact-form"
+                                    onSubmit={submit}
+                                >
                                     <label>
                                         Nama lengkap
                                         <input

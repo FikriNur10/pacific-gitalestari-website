@@ -26,7 +26,7 @@ export default function Proteksi() {
             {/* ===== Service grid ===== */}
             <section className="pt-120 pb-90">
                 <div className="container">
-                    <div className="tp-section-title-wrapper text-center mb-50">
+                    <div className="tp-section-title-wrapper tp-section-intro mb-50">
                         <span className="tp-section-title-pre">
                             Katalog · Sistem Proteksi
                         </span>
@@ -40,9 +40,9 @@ export default function Proteksi() {
                             dengan produk teknis yang teruji di lapangan.
                         </p>
                     </div>
-                    <div className="row">
+                    <div className="row tp-card-row">
                         <div className="col-lg-4 col-md-6">
-                            <div className="tp-service-item mb-30 reveal">
+                            <div className="tp-service-item reveal mb-30">
                                 <span className="tp-service-number">01</span>
                                 <span className="tp-service-icon">
                                     <Umbrella size={32} />
@@ -71,7 +71,7 @@ export default function Proteksi() {
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6">
-                            <div className="tp-service-item mb-30 reveal">
+                            <div className="tp-service-item reveal mb-30">
                                 <span className="tp-service-number">02</span>
                                 <span className="tp-service-icon">
                                     <Anchor size={32} />
@@ -80,8 +80,9 @@ export default function Proteksi() {
                                     Grouting &amp; Anchor
                                 </h3>
                                 <p>
-                                    Grout non-shrink hingga epoxy kekuatan tinggi
-                                    untuk base plate, mesin, dan anchoring.
+                                    Grout non-shrink hingga epoxy kekuatan
+                                    tinggi untuk base plate, mesin, dan
+                                    anchoring.
                                 </p>
                                 <ul className="tp-service-specs">
                                     <li>Conbextra GP</li>
@@ -98,7 +99,7 @@ export default function Proteksi() {
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6">
-                            <div className="tp-service-item mb-30 reveal">
+                            <div className="tp-service-item reveal mb-30">
                                 <span className="tp-service-number">03</span>
                                 <span className="tp-service-icon">
                                     <Layers size={32} />
