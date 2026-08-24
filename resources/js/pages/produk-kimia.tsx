@@ -1,11 +1,13 @@
 import { Head, Link } from '@inertiajs/react';
-import { ArrowRight, FlaskConical } from 'lucide-react';
+import { ArrowRight, FlaskConical, Info, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import LandingLayout from '@/layouts/landing-layout';
 import { useHeroBackground } from '@/lib/hero-background';
 
 type Spec = {
     label: string | null;
     value: string | null;
+    description: string | null;
 };
 
 type Product = {
@@ -35,6 +37,25 @@ type PageProps = {
  */
 export default function ProdukKimia({ products }: PageProps) {
     const heroBg = useHeroBackground('produk-kimia');
+    // The spec whose detail popup is open (null = closed).
+    const [activeSpec, setActiveSpec] = useState<Spec | null>(null);
+
+    // Close the popup on Escape while it's open.
+    useEffect(() => {
+        if (!activeSpec) {
+            return;
+        }
+
+        const onKeyDown = (event: KeyboardEvent): void => {
+            if (event.key === 'Escape') {
+                setActiveSpec(null);
+            }
+        };
+
+        document.addEventListener('keydown', onKeyDown);
+
+        return () => document.removeEventListener('keydown', onKeyDown);
+    }, [activeSpec]);
 
     return (
         <LandingLayout
@@ -50,7 +71,7 @@ export default function ProdukKimia({ products }: PageProps) {
 
             <section className="pt-120 pb-90">
                 <div className="container">
-                    <div className="tp-section-title-wrapper text-center mb-50">
+                    <div className="tp-section-title-wrapper tp-section-intro mb-50">
                         <span className="tp-section-title-pre">
                             Katalog · Bahan Kimia Industri
                         </span>
@@ -59,8 +80,8 @@ export default function ProdukKimia({ products }: PageProps) {
                         </h1>
                         <p className="tp-section-text">
                             Enam lini utama dengan fungsi teknis spesifik — dari
-                            corrosion &amp; scale inhibitor hingga flocculants dan
-                            resin demineralisasi.
+                            corrosion &amp; scale inhibitor hingga flocculants
+                            dan resin demineralisasi.
                         </p>
                     </div>
 
@@ -69,13 +90,13 @@ export default function ProdukKimia({ products }: PageProps) {
                             Belum ada produk yang dipublikasikan.
                         </p>
                     ) : (
-                        <div className="row">
+                        <div className="row tp-card-row">
                             {products.data.map((product, index) => (
                                 <div
                                     key={product.slug}
                                     className="col-lg-4 col-md-6"
                                 >
-                                    <div className="tp-service-item mb-30 reveal">
+                                    <div className="tp-service-item reveal mb-30">
                                         <span className="tp-service-number">
                                             {String(index + 1).padStart(2, '0')}
                                         </span>
@@ -89,13 +110,29 @@ export default function ProdukKimia({ products }: PageProps) {
                                             <p>{product.summary}</p>
                                         )}
                                         {product.specs.length > 0 && (
-                                            <ul className="tp-service-specs">
-                                                {product.specs.map((spec, i) => (
-                                                    <li key={i}>
-                                                        {spec.value ||
-                                                            spec.label}
-                                                    </li>
-                                                ))}
+                                            <ul className="tp-spec-chips">
+                                                {product.specs.map(
+                                                    (spec, i) => (
+                                                        <li key={i}>
+                                                            <button
+                                                                type="button"
+                                                                className="tp-spec-chip"
+                                                                onClick={() =>
+                                                                    setActiveSpec(
+                                                                        spec,
+                                                                    )
+                                                                }
+                                                            >
+                                                                {spec.value ||
+                                                                    spec.label}
+                                                                <Info
+                                                                    size={13}
+                                                                    aria-hidden="true"
+                                                                />
+                                                            </button>
+                                                        </li>
+                                                    ),
+                                                )}
                                             </ul>
                                         )}
                                         {product.datasheetUrl ? (
@@ -134,7 +171,9 @@ export default function ProdukKimia({ products }: PageProps) {
                                         key={link.label}
                                         href={link.url}
                                         className={
-                                            link.active ? 'is-active' : undefined
+                                            link.active
+                                                ? 'is-active'
+                                                : undefined
                                         }
                                         dangerouslySetInnerHTML={{
                                             __html: link.label,
@@ -163,7 +202,8 @@ export default function ProdukKimia({ products }: PageProps) {
                                     Catatan teknis
                                 </span>
                                 <h2 className="tp-section-title">
-                                    Butuh lembar spesifikasi dan dosis pemakaian?
+                                    Butuh lembar spesifikasi dan dosis
+                                    pemakaian?
                                 </h2>
                                 <p className="tp-section-text">
                                     Lembar spesifikasi teknis dan rekomendasi
@@ -213,6 +253,45 @@ export default function ProdukKimia({ products }: PageProps) {
                     </div>
                 </div>
             </section>
+
+            {activeSpec && (
+                <div
+                    className="tp-modal-overlay"
+                    role="presentation"
+                    onClick={() => setActiveSpec(null)}
+                >
+                    <div
+                        className="tp-modal"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="tp-spec-modal-title"
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        <button
+                            type="button"
+                            className="tp-modal-close"
+                            aria-label="Tutup"
+                            onClick={() => setActiveSpec(null)}
+                        >
+                            <X size={18} />
+                        </button>
+                        {activeSpec.label && (
+                            <p className="tp-modal-eyebrow">
+                                {activeSpec.label}
+                            </p>
+                        )}
+                        <h3 id="tp-spec-modal-title" className="tp-modal-title">
+                            {activeSpec.value || activeSpec.label}
+                        </h3>
+                        <p className="tp-modal-body">
+                            {activeSpec.description &&
+                            activeSpec.description.trim()
+                                ? activeSpec.description
+                                : 'Deskripsi belum tersedia.'}
+                        </p>
+                    </div>
+                </div>
+            )}
         </LandingLayout>
     );
 }

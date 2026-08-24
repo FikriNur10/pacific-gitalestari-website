@@ -42,6 +42,26 @@ test('an admin can create a product and the slug is set', function () {
         ->and($product->specs)->toBe([['label' => 'Bentuk', 'value' => 'Cair']]);
 });
 
+test('an admin can store a per-spec description', function () {
+    $this->actingAs(User::factory()->admin()->create())
+        ->post('/admin/produk-kimia', [
+            'name' => 'Cooling Water Treatment',
+            'status' => 'published',
+            'specs' => [
+                [
+                    'label' => 'Produk',
+                    'value' => 'Corrosion Inhibitor',
+                    'description' => 'Melindungi permukaan logam dari korosi.',
+                ],
+            ],
+        ])
+        ->assertRedirect('/admin/produk-kimia');
+
+    $spec = Product::first()->specs[0];
+    expect($spec['value'])->toBe('Corrosion Inhibitor')
+        ->and($spec['description'])->toBe('Melindungi permukaan logam dari korosi.');
+});
+
 test('the name is required', function () {
     $this->actingAs(User::factory()->admin()->create())
         ->post('/admin/produk-kimia', ['status' => 'draft'])

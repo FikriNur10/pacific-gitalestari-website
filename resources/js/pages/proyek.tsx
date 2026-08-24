@@ -87,8 +87,8 @@ export default function Proyek({ projects }: PageProps) {
                                 <div className="tp-about-list">
                                     <ul>
                                         <li>
-                                            <CheckCircle2 size={20} /> Klien: PT.
-                                            PLN (Persero) Wilayah Kalselteng
+                                            <CheckCircle2 size={20} /> Klien:
+                                            PT. PLN (Persero) Wilayah Kalselteng
                                         </li>
                                         <li>
                                             <CheckCircle2 size={20} /> Lingkup:
@@ -113,7 +113,7 @@ export default function Proyek({ projects }: PageProps) {
             {/* ===== Project grid ===== */}
             <section className="tp-service-area pt-120 pb-90">
                 <div className="container">
-                    <div className="tp-section-title-wrapper text-center mb-50">
+                    <div className="tp-section-title-wrapper tp-section-intro mb-50">
                         <span className="tp-section-title-pre">Portofolio</span>
                         <h2 className="tp-section-title">
                             Lingkup proyek lintas divisi.
@@ -130,7 +130,7 @@ export default function Proyek({ projects }: PageProps) {
                             Belum ada proyek yang dipublikasikan.
                         </p>
                     ) : (
-                        <div className="row">
+                        <div className="row tp-card-row">
                             {projects.data.map((project) => (
                                 <div
                                     key={project.slug}
@@ -190,7 +190,9 @@ export default function Proyek({ projects }: PageProps) {
                                         key={link.label}
                                         href={link.url}
                                         className={
-                                            link.active ? 'is-active' : undefined
+                                            link.active
+                                                ? 'is-active'
+                                                : undefined
                                         }
                                         dangerouslySetInnerHTML={{
                                             __html: link.label,

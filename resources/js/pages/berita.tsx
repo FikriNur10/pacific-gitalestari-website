@@ -48,7 +48,7 @@ export default function Berita({ articles }: PageProps) {
 
             <section className="pt-120 pb-90">
                 <div className="container">
-                    <div className="tp-section-title-wrapper text-center mb-50">
+                    <div className="tp-section-title-wrapper tp-section-intro mb-50">
                         <span className="tp-section-title-pre">
                             Berita &amp; Artikel
                         </span>
@@ -67,7 +67,7 @@ export default function Berita({ articles }: PageProps) {
                             Belum ada artikel yang dipublikasikan.
                         </p>
                     ) : (
-                        <div className="row">
+                        <div className="row tp-card-row">
                             {articles.data.map((article) => (
                                 <div
                                     key={article.slug}
@@ -100,7 +100,9 @@ export default function Berita({ articles }: PageProps) {
                                             )}
                                             <h3 className="tp-blog-title">
                                                 <Link
-                                                    href={show(article.slug).url}
+                                                    href={
+                                                        show(article.slug).url
+                                                    }
                                                 >
                                                     {article.title}
                                                 </Link>
@@ -135,7 +137,9 @@ export default function Berita({ articles }: PageProps) {
                                         key={link.label}
                                         href={link.url}
                                         className={
-                                            link.active ? 'is-active' : undefined
+                                            link.active
+                                                ? 'is-active'
+                                                : undefined
                                         }
                                         dangerouslySetInnerHTML={{
                                             __html: link.label,
