@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react';
+import { ArrowRight, FileText } from 'lucide-react';
 import LandingLayout from '@/layouts/landing-layout';
 import { useHeroBackground } from '@/lib/hero-background';
 
@@ -20,16 +21,19 @@ type PageProps = {
 };
 
 /**
- * Download Center — ported from the prototype's download.html, now DB-driven.
- * Filter chips + cards come from props; the `.pgl` markup and the
- * data-filter-group / data-filter / data-category attributes are preserved so
- * the existing use-landing-effects category filter keeps working.
+ * Download Center — finbest chrome (breadcrumb + section title + cta band) around
+ * the CMS-driven download grid. The filter-bar / filter-chip markup and the
+ * data-filter-group / data-filter / data-category attributes are preserved so the
+ * existing use-landing-effects category filter keeps working.
  */
 export default function Download({ downloads, categories }: PageProps) {
     const heroBg = useHeroBackground('download');
 
     return (
-        <LandingLayout title="Download | PT. Pacific Gitalestari">
+        <LandingLayout
+            title="Download | PT. Pacific Gitalestari"
+            breadcrumb={{ title: 'Download Center', image: heroBg }}
+        >
             <Head>
                 <meta
                     name="description"
@@ -37,37 +41,24 @@ export default function Download({ downloads, categories }: PageProps) {
                 />
             </Head>
 
-            <section className="page-hero">
-                {/* Foto full-bleed page-hero. SWAP: ganti dengan foto proyek asli approved. */}
-                <img
-                    className="hero-bg"
-                    src={heroBg}
-                    alt="Sambungan pipa baja teknik"
-                />
-                <div className="hero-scrim" aria-hidden="true" />
-                <div className="hero-orbs" aria-hidden="true">
-                    <div className="hero-orb hero-orb-1" />
-                    <div className="hero-orb hero-orb-2" />
-                </div>
+            <section className="pt-120 pb-90">
                 <div className="container">
-                    <nav className="breadcrumb" aria-label="Breadcrumb">
-                        <a href="/">Beranda</a>
-                        <span aria-hidden="true">/</span>Download
-                    </nav>
-                    <p className="eyebrow">Download Center</p>
-                    <h1>Katalog, datasheet, dan dokumen teknis.</h1>
-                    <p>
-                        Unduh katalog produk, brosur, lembar spesifikasi (TDS),
-                        MSDS, dan sertifikat. Gunakan filter untuk menampilkan
-                        dokumen per kategori.
-                    </p>
-                </div>
-            </section>
+                    <div className="tp-section-title-wrapper text-center mb-50">
+                        <span className="tp-section-title-pre">
+                            Download Center
+                        </span>
+                        <h1 className="tp-section-title">
+                            Katalog, datasheet, dan dokumen teknis.
+                        </h1>
+                        <p className="tp-section-text">
+                            Unduh katalog produk, brosur, lembar spesifikasi
+                            (TDS), MSDS, dan sertifikat. Gunakan filter untuk
+                            menampilkan dokumen per kategori.
+                        </p>
+                    </div>
 
-            <section className="section">
-                <div className="container">
                     <div
-                        className="filter-bar"
+                        className="filter-bar justify-content-center"
                         data-filter-group
                         data-filter-target="#download-list"
                         role="group"
@@ -95,85 +86,83 @@ export default function Download({ downloads, categories }: PageProps) {
                     </div>
 
                     {downloads.length === 0 ? (
-                        <p className="download-empty">
+                        <p className="download-empty text-center">
                             Belum ada dokumen untuk diunduh saat ini.
                         </p>
                     ) : (
-                        <div className="catalog-grid" id="download-list">
+                        <div className="row" id="download-list">
                             {downloads.map((item) => (
-                                <article
+                                <div
                                     key={item.id}
-                                    className="download-card reveal"
+                                    className="col-lg-4 col-md-6"
                                     data-category={item.categorySlug}
                                 >
-                                    <div className="download-head">
-                                        <span
-                                            className="download-icon"
-                                            aria-hidden="true"
-                                        >
-                                            <svg
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
+                                    <article className="download-card mb-30 reveal">
+                                        <div className="download-head">
+                                            <span
+                                                className="download-icon"
+                                                aria-hidden="true"
                                             >
-                                                <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
-                                                <path d="M14 3v5h5" />
-                                                <path d="M9 13h6M9 17h6" />
-                                            </svg>
-                                        </span>
-                                        <h3>{item.title}</h3>
-                                    </div>
-                                    {item.category && (
-                                        <div className="download-badges">
-                                            <span className="badge badge-cat">
-                                                {item.category}
+                                                <FileText size={24} />
                                             </span>
+                                            <h3>{item.title}</h3>
                                         </div>
-                                    )}
-                                    {item.description && (
-                                        <p className="download-desc">
-                                            {item.description}
+                                        {item.category && (
+                                            <div className="download-badges">
+                                                <span className="badge badge-cat">
+                                                    {item.category}
+                                                </span>
+                                            </div>
+                                        )}
+                                        {item.description && (
+                                            <p className="download-desc">
+                                                {item.description}
+                                            </p>
+                                        )}
+                                        <p className="download-meta">
+                                            {item.humanSize}
                                         </p>
-                                    )}
-                                    <p className="download-meta">
-                                        {item.humanSize}
-                                    </p>
-                                    <div className="download-actions">
-                                        <a
-                                            className="button button-small button-navy"
-                                            href={item.downloadUrl}
-                                        >
-                                            Unduh{' '}
-                                            <span aria-hidden="true">↓</span>
-                                        </a>
-                                    </div>
-                                </article>
+                                        <div className="download-actions">
+                                            <a
+                                                className="tp-btn"
+                                                href={item.downloadUrl}
+                                            >
+                                                Unduh <ArrowRight size={16} />
+                                            </a>
+                                        </div>
+                                    </article>
+                                </div>
                             ))}
                         </div>
                     )}
                 </div>
             </section>
 
-            <section className="consultation">
-                <div className="consultation-box container">
-                    <div>
-                        <p className="eyebrow eyebrow-light">
-                            Tidak menemukan dokumen?
-                        </p>
-                        <h2>Minta dokumen teknis spesifik.</h2>
-                        <p>
-                            Sebutkan produk atau sistem yang Anda butuhkan — tim
-                            PGL akan mengirimkan katalog, TDS, atau MSDS
-                            terkait.
-                        </p>
-                    </div>
-                    <div>
-                        <a className="button button-light" href="/kontak#form">
-                            Minta dokumen <span aria-hidden="true">→</span>
-                        </a>
+            <section className="tp-cta-area">
+                <div className="container">
+                    <div className="tp-cta-box">
+                        <div className="row align-items-center">
+                            <div className="col-lg-8">
+                                <h2 className="tp-cta-title">
+                                    Minta dokumen teknis spesifik.
+                                </h2>
+                                <p>
+                                    Sebutkan produk atau sistem yang Anda
+                                    butuhkan — tim PGL akan mengirimkan katalog,
+                                    TDS, atau MSDS terkait.
+                                </p>
+                            </div>
+                            <div className="col-lg-4">
+                                <div className="tp-cta-actions">
+                                    <a
+                                        className="tp-btn tp-btn-white"
+                                        href="/kontak#form"
+                                    >
+                                        Minta dokumen <ArrowRight size={17} />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

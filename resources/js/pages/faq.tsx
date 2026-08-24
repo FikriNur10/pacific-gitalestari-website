@@ -7,14 +7,18 @@ type FaqGroup = { category: string; slug: string; items: FaqItem[] };
 type PageProps = { groups: FaqGroup[] };
 
 /**
- * FAQ — CMS-backed (Fase 4). Questions grouped by category; answers hold sanitized
- * rich-text HTML from the dashboard editor. Native <details> accordion preserved.
+ * FAQ — finbest chrome (breadcrumb + section title + filter pills) around the
+ * CMS-backed accordion (Fase 4). Answers hold sanitized rich-text HTML from the
+ * dashboard editor; the native <details> accordion is preserved.
  */
 export default function Faq({ groups }: PageProps) {
     const heroBg = useHeroBackground('faq');
 
     return (
-        <LandingLayout title="FAQ | PT. Pacific Gitalestari">
+        <LandingLayout
+            title="FAQ | PT. Pacific Gitalestari"
+            breadcrumb={{ title: 'FAQ', image: heroBg }}
+        >
             <Head>
                 <meta
                     name="description"
@@ -22,41 +26,30 @@ export default function Faq({ groups }: PageProps) {
                 />
             </Head>
 
-            <section className="page-hero">
-                <img
-                    className="hero-bg"
-                    src={heroBg}
-                    alt="Tangki penyimpanan air di fasilitas pengolahan"
-                />
-                <div className="hero-scrim" aria-hidden="true" />
-                <div className="hero-orbs" aria-hidden="true">
-                    <div className="hero-orb hero-orb-1" />
-                    <div className="hero-orb hero-orb-2" />
-                </div>
+            <section className="pt-120 pb-120">
                 <div className="container">
-                    <nav className="breadcrumb" aria-label="Breadcrumb">
-                        <a href="/">Beranda</a>
-                        <span aria-hidden="true">/</span>FAQ
-                    </nav>
-                    <p className="eyebrow">FAQ</p>
-                    <h1>Pertanyaan yang sering diajukan.</h1>
-                    <p>
-                        Ringkasan jawaban seputar produk, layanan teknis,
-                        penawaran, dan standar mutu PGL. Tidak menemukan
-                        jawabannya? Tim kami siap membantu.
-                    </p>
-                </div>
-            </section>
+                    <div className="tp-section-title-wrapper text-center mb-50">
+                        <span className="tp-section-title-pre">FAQ</span>
+                        <h1 className="tp-section-title">
+                            Pertanyaan yang sering diajukan.
+                        </h1>
+                        <p className="tp-section-text">
+                            Ringkasan jawaban seputar produk, layanan teknis,
+                            penawaran, dan standar mutu PGL. Tidak menemukan
+                            jawabannya? Tim kami siap membantu.
+                        </p>
+                    </div>
 
-            <section className="section">
-                <div className="container">
                     {groups.length === 0 ? (
-                        <p className="pending-note">
+                        <p className="pending-note text-center">
                             Belum ada pertanyaan yang dipublikasikan.
                         </p>
                     ) : (
                         <>
-                            <nav className="faq-nav" aria-label="Kategori FAQ">
+                            <nav
+                                className="tp-filter justify-content-center"
+                                aria-label="Kategori FAQ"
+                            >
                                 {groups.map((group) => (
                                     <a key={group.slug} href={`#${group.slug}`}>
                                         {group.category}

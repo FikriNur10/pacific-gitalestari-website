@@ -1,4 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import LandingLayout from '@/layouts/landing-layout';
 import { useHeroBackground } from '@/lib/hero-background';
 
@@ -27,14 +28,18 @@ const FALLBACK_COVER =
     '/landing/images/concrete-structures-Ac97OqAWDvg-unsplash.jpg';
 
 /**
- * Proyek (Projects) — now backed by the CMS (Fase 3). Lists published portfolio
- * projects from the database. Hero + featured + consultation chrome stays static.
+ * Proyek (Projects) — finbest project page port. Breadcrumb banner + featured
+ * highlight (static PLTD case) + finbest project card grid backed by the CMS
+ * (Fase 3) with pagination + a CTA band. Content/data wiring preserved.
  */
 export default function Proyek({ projects }: PageProps) {
     const heroBg = useHeroBackground('proyek');
 
     return (
-        <LandingLayout title="Proyek | PT. Pacific Gitalestari">
+        <LandingLayout
+            title="Proyek | PT. Pacific Gitalestari"
+            breadcrumb={{ title: 'Proyek', image: heroBg }}
+        >
             <Head>
                 <meta
                     name="description"
@@ -42,78 +47,78 @@ export default function Proyek({ projects }: PageProps) {
                 />
             </Head>
 
-            <section className="page-hero">
-                {/* Foto full-bleed page-hero. SWAP: ganti dengan foto proyek asli approved. */}
-                <img
-                    className="hero-bg"
-                    src={heroBg}
-                    alt="Struktur konstruksi industri tampak atas"
-                />
-                <div className="hero-scrim" aria-hidden="true" />
-                <div className="hero-orbs" aria-hidden="true">
-                    <div className="hero-orb hero-orb-1" />
-                    <div className="hero-orb hero-orb-2" />
-                </div>
+            {/* ===== Featured highlight ===== */}
+            <section className="tp-about-area pt-120 pb-90">
                 <div className="container">
-                    <nav className="breadcrumb" aria-label="Breadcrumb">
-                        <a href="/">Beranda</a>
-                        <span aria-hidden="true">/</span>Proyek
-                    </nav>
-                    <p className="eyebrow">Proyek</p>
-                    <h1>Rekam jejak yang terlihat di lapangan.</h1>
-                    <p>
-                        Portofolio B2B dan sektor publik, dari penyewaan diesel
-                        skala pembangkit hingga sistem pengolahan air dan
-                        proteksi struktur.
-                    </p>
-                </div>
-            </section>
-
-            <section className="section project-section">
-                <div className="project-layout container">
-                    <div>
-                        <p className="eyebrow">Featured project</p>
-                        <h2>PLTD Pangkalan Bun.</h2>
-                        <p>
-                            Penyewaan diesel engine (PLTD) untuk mendukung
-                            kebutuhan daya PT. PLN (Persero) Wilayah Kalselteng
-                            — salah satu portofolio sektor publik PGL.
-                        </p>
-                        <ul className="check-list">
-                            <li>Klien: PT. PLN (Persero) Wilayah Kalselteng</li>
-                            <li>Lingkup: Diesel engine rental / PLTD</li>
-                            <li>Sektor: Kelistrikan &amp; infrastruktur</li>
-                        </ul>
-                        <a className="button button-ghost" href="/kontak#form">
-                            Diskusikan proyek serupa{' '}
-                            <span aria-hidden="true">→</span>
-                        </a>
+                    <div className="row align-items-center">
+                        <div className="col-lg-6">
+                            <div className="tp-about-thumb-wrapper reveal">
+                                <div className="main">
+                                    <picture>
+                                        <source
+                                            srcSet="/landing/diesel-generator.webp"
+                                            type="image/webp"
+                                        />
+                                        <img
+                                            src="/landing/diesel-generator.jpg"
+                                            alt="Generator diesel kuning dalam lingkungan proyek industri"
+                                            loading="lazy"
+                                        />
+                                    </picture>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-6">
+                            <div className="tp-about-wrapper">
+                                <div className="tp-about-title-wrapper">
+                                    <span className="tp-section-title-pre">
+                                        Featured project
+                                    </span>
+                                    <h1 className="tp-section-title">
+                                        PLTD Pangkalan Bun.
+                                    </h1>
+                                </div>
+                                <p>
+                                    Penyewaan diesel engine (PLTD) untuk
+                                    mendukung kebutuhan daya PT. PLN (Persero)
+                                    Wilayah Kalselteng — salah satu portofolio
+                                    sektor publik PGL.
+                                </p>
+                                <div className="tp-about-list">
+                                    <ul>
+                                        <li>
+                                            <CheckCircle2 size={20} /> Klien: PT.
+                                            PLN (Persero) Wilayah Kalselteng
+                                        </li>
+                                        <li>
+                                            <CheckCircle2 size={20} /> Lingkup:
+                                            Diesel engine rental / PLTD
+                                        </li>
+                                        <li>
+                                            <CheckCircle2 size={20} /> Sektor:
+                                            Kelistrikan &amp; infrastruktur
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a className="tp-btn" href="/kontak#form">
+                                    Diskusikan proyek serupa{' '}
+                                    <ArrowRight size={17} />
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <article className="project-card reveal">
-                        <div className="project-image">
-                            <img
-                                src="/landing/diesel-generator.jpg"
-                                alt="Generator diesel kuning dalam lingkungan proyek industri"
-                            />
-                            <span>PLTD</span>
-                        </div>
-                        <div className="project-copy">
-                            <p>Featured project</p>
-                            <h3>PLTD Pangkalan Bun</h3>
-                            <span>PT. PLN (Persero) Wilayah Kalselteng</span>
-                        </div>
-                    </article>
                 </div>
             </section>
 
-            <section className="section">
+            {/* ===== Project grid ===== */}
+            <section className="tp-service-area pt-120 pb-90">
                 <div className="container">
-                    <div className="section-heading">
-                        <div>
-                            <p className="eyebrow">Portofolio</p>
-                            <h2>Lingkup proyek lintas divisi.</h2>
-                        </div>
-                        <p>
+                    <div className="tp-section-title-wrapper text-center mb-50">
+                        <span className="tp-section-title-pre">Portofolio</span>
+                        <h2 className="tp-section-title">
+                            Lingkup proyek lintas divisi.
+                        </h2>
+                        <p className="tp-section-text">
                             Studi kasus terverifikasi lengkap dengan foto dan
                             fakta proyek akan ditampilkan setelah persetujuan
                             klien.
@@ -121,33 +126,53 @@ export default function Proyek({ projects }: PageProps) {
                     </div>
 
                     {projects.data.length === 0 ? (
-                        <p className="pending-note">
+                        <p className="pending-note text-center">
                             Belum ada proyek yang dipublikasikan.
                         </p>
                     ) : (
-                        <div className="portfolio-grid">
+                        <div className="row">
                             {projects.data.map((project) => (
                                 <div
                                     key={project.slug}
-                                    className="portfolio-item reveal"
+                                    className="col-lg-4 col-md-6"
                                 >
-                                    <div className="portfolio-thumb">
-                                        <img
-                                            src={
-                                                project.coverUrl ??
-                                                FALLBACK_COVER
-                                            }
-                                            alt={project.title}
-                                        />
-                                        {project.category && (
-                                            <span>{project.category}</span>
-                                        )}
-                                    </div>
-                                    <div className="portfolio-body">
-                                        <strong>{project.title}</strong>
-                                        {project.summary && (
-                                            <small>{project.summary}</small>
-                                        )}
+                                    <div className="tp-project-item reveal">
+                                        <div className="tp-project-thumb">
+                                            {project.category && (
+                                                <span className="tp-project-tag">
+                                                    {project.category}
+                                                </span>
+                                            )}
+                                            <img
+                                                src={
+                                                    project.coverUrl ??
+                                                    FALLBACK_COVER
+                                                }
+                                                alt={project.title}
+                                            />
+                                        </div>
+                                        <div className="tp-project-content">
+                                            {project.client && (
+                                                <span>{project.client}</span>
+                                            )}
+                                            <h3 className="tp-project-name">
+                                                {project.title}
+                                            </h3>
+                                            {project.summary && (
+                                                <p>{project.summary}</p>
+                                            )}
+                                            {(project.location ||
+                                                project.year) && (
+                                                <p className="tp-project-meta">
+                                                    {[
+                                                        project.location,
+                                                        project.year,
+                                                    ]
+                                                        .filter(Boolean)
+                                                        .join(' · ')}
+                                                </p>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -165,9 +190,7 @@ export default function Proyek({ projects }: PageProps) {
                                         key={link.label}
                                         href={link.url}
                                         className={
-                                            link.active
-                                                ? 'is-active'
-                                                : undefined
+                                            link.active ? 'is-active' : undefined
                                         }
                                         dangerouslySetInnerHTML={{
                                             __html: link.label,
@@ -187,23 +210,33 @@ export default function Proyek({ projects }: PageProps) {
                 </div>
             </section>
 
-            <section className="consultation">
-                <div className="consultation-box container">
-                    <div>
-                        <p className="eyebrow eyebrow-light">
-                            Mulai dari kebutuhan Anda
-                        </p>
-                        <h2>Punya proyek dengan kebutuhan teknis serupa?</h2>
-                        <p>
-                            Ceritakan lingkup dan lokasi proyek Anda — tim PGL
-                            akan bantu menyusun pendekatan dan penawaran.
-                        </p>
-                    </div>
-                    <div>
-                        <a className="button button-light" href="/kontak#form">
-                            Diskusikan proyek Anda{' '}
-                            <span aria-hidden="true">→</span>
-                        </a>
+            {/* ===== CTA band ===== */}
+            <section className="tp-cta-area">
+                <div className="container">
+                    <div className="tp-cta-box">
+                        <div className="row align-items-center">
+                            <div className="col-lg-8">
+                                <h2 className="tp-cta-title">
+                                    Punya proyek dengan kebutuhan teknis serupa?
+                                </h2>
+                                <p>
+                                    Ceritakan lingkup dan lokasi proyek Anda —
+                                    tim PGL akan bantu menyusun pendekatan dan
+                                    penawaran.
+                                </p>
+                            </div>
+                            <div className="col-lg-4">
+                                <div className="tp-cta-actions">
+                                    <a
+                                        className="tp-btn tp-btn-white"
+                                        href="/kontak#form"
+                                    >
+                                        Diskusikan proyek Anda{' '}
+                                        <ArrowRight size={17} />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

@@ -20,18 +20,43 @@ export interface NavLink {
     label: string;
 }
 
-// Primary navigation. Order + enterprise labels (Solusi Industri, Portofolio,
-// Berita & Artikel) mirror the reference competitor menu so the site reads as at
-// least as complete on a glance — the tender is being judged on menu breadth.
-// Every entry resolves to a real built page/route.
-export const NAV_LINKS: NavLink[] = [
+/** A top-level entry that opens a submenu instead of navigating itself. */
+export interface NavGroup {
+    label: string;
+    children: NavLink[];
+}
+
+export type NavItem = NavLink | NavGroup;
+
+/** Narrow a NavItem to a group (has children) vs a plain leaf link. */
+export function isNavGroup(item: NavItem): item is NavGroup {
+    return 'children' in item;
+}
+
+// Primary navigation. Labels (Solusi Industri, Portofolio, Berita & Artikel)
+// mirror the reference competitor menu so the site reads as at least as complete
+// on a glance — the tender is being judged on menu breadth. All 9 destinations are
+// preserved, but grouped under "Produk & Solusi" / "Informasi" dropdowns so the
+// top-level row stays at 4 items and no longer overflows the 1280px header.
+// Every leaf resolves to a real built page/route; group labels are not pages.
+export const NAV_ITEMS: NavItem[] = [
     { href: '/tentang', label: 'Tentang Kami' },
-    { href: '/produk-kimia', label: 'Produk' },
-    { href: '/solusi', label: 'Solusi Industri' },
-    { href: '/proyek', label: 'Portofolio' },
-    { href: '/berita', label: 'Berita & Artikel' },
-    { href: '/galeri', label: 'Galeri' },
-    { href: '/download', label: 'Unduhan' },
-    { href: '/faq', label: 'FAQ' },
+    {
+        label: 'Produk & Solusi',
+        children: [
+            { href: '/produk-kimia', label: 'Produk' },
+            { href: '/solusi', label: 'Solusi Industri' },
+            { href: '/proyek', label: 'Portofolio' },
+        ],
+    },
+    {
+        label: 'Informasi',
+        children: [
+            { href: '/berita', label: 'Berita & Artikel' },
+            { href: '/galeri', label: 'Galeri' },
+            { href: '/download', label: 'Unduhan' },
+            { href: '/faq', label: 'FAQ' },
+        ],
+    },
     { href: '/kontak', label: 'Kontak' },
 ];
